@@ -34,9 +34,11 @@ class Login(APIView):
               return HttpResponse("Inactive user.")
         else:
           print("create a user")
-          return HttpResponse('Create a user.')        
+          # messages.info(request, f"{username} doesn't exit please create one.")
+          return HttpResponse(f"{username} or password doesn't exit.")
+                  
 
-
+ 
 
 class userProfile(APIView):
   def get(self,request):
