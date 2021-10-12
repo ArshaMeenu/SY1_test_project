@@ -31,27 +31,21 @@
 
 <body class="body-wrapper">
   
-<div id="content">
+  <div id="content">
+      {% block content %}{% endblock %}
+  </div>
 
-        {% block content %}{% endblock %}
-    </div>
 
-
-<!--============================
-=            Footer            =
-=============================-->
+<!--footer section start -->
 
 <footer class="footer-main">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
           <div class="block text-center">
-          <div class="footer-logo">
-             {% comment %} <img src="{% static 'images/favicon.png' %}" style ="color:red; " alt="logo" class="img-fluid">  {% endcomment %}
-             {% comment %} <p ><a href="#" style ="color:red;font-size : 20px">Event_z </a><p> {% endcomment %}
-            </div>
+         
             <ul class="social-links-footer list-inline">
-              <li class="list-inline-item">
+              <li class="list-inline-item ">
                 <a href="#"><i class="fa fa-facebook"></i></a>
               </li>
               <li class="list-inline-item">
@@ -88,6 +82,7 @@
     </div>
   </div>
 </footer>
+<!--footer section end -->
 
 
   <!-- JAVASCRIPTS -->

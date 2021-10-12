@@ -24,16 +24,11 @@
       <ul class="navbar-nav  ">
       
         <li class=" active" >
-          <a class="nav-link " href="{% url 'home' %}"  >Home
-            
+          <a class="nav-link " href="{% url 'home' %}"  >Home           
           </a>         
         </li>
-
       </ul>
-      {% comment %} <a href="#">
-         <img src="{% static 'images/favicon.png' %}" alt="ticket"> 
-      
-      </a> {% endcomment %}
+     
       </div>
   </div>
 </nav>
@@ -48,7 +43,7 @@
                     <div id="login-box" class="col-md-12">
                         <form id="login-form" class="form" action="" method="post">
                         {% csrf_token %}
-                            <h3 class="text-center text-danger">Login</h3>
+                            <h3 class="text-center text-warning">Login</h3>
                             <div class="form-group">
                                 <label for="username" class="text-info">Username:</label><br>
                                 <input type="text" name="username" id="username" class="form-control">
