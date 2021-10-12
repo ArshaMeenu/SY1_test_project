@@ -131,3 +131,9 @@ REST_FRAMEWORK = {
 
 MEDIA_ROOT  = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# stripe section
+
+STRIPE_PUBLIC_KEY = ""
+STRIPE_SECRET_KEY = ""
+STRIPE_WEBHOOK_SECRET = ""
