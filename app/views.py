@@ -38,7 +38,7 @@ class Login(APIView):
             else:
               return HttpResponse("Inactive user.")
         else:
-          return HttpResponse(f"{username} or password doesn't exit.")
+          return HttpResponse(f"{username} or password doesn't exit or incorrect.")
                   
 
  
@@ -52,7 +52,7 @@ class userProfile(APIView):
         if serializer_obj.is_valid():
             serializer_obj.save()
             return render(request,'home.html', status=status.HTTP_201_CREATED)
-        return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
+        return HttpResponse('All the fields are required.', status=status.HTTP_400_BAD_REQUEST)
 
 
 class Logout(APIView):

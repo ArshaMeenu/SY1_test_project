@@ -30,12 +30,13 @@
 	        <li class="nav-item">
 	          <a class="nav-link" href="#contact">Contact<span>/</span></a>
 	        </li>
-	        <li class="nav-item">
-	          <a class="nav-link" href="{% url 'login' %}">Login<span>/</span></a>
+          <li class="nav-item">
+	          <a class="nav-link" href="#payment">Payment<span>/</span></a>
 	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#payment">Payment</a>
+	          <a class="nav-link" href="{% url 'login' %}">Login</a>
 	        </li>
+	        
 	      </ul>
 	      </div>
 	  </div>
@@ -114,12 +115,11 @@
 	        <div class="card text-center" style="width: 18rem;">
 	        <h5 class="card-header">{{i.event_name}}</h5>
 	          <div class="card-body">
-
-	            <p class="card-text"><b>Desc :</b>{{i.description}}</p>
+	            <p class="card-text"><b>Desc : </b>{{i.description}}</p>
 	            <br>
-	            <p ><b>Date :</b>{{i.date}}</p>
+	            <p ><b>Date : </b>{{i.created_at}}</p>
 	            <br>
-	            <p><b>Member Count:</b>{{i.no_of_members}}</p>
+	            <p><b>Member Count: </b>{{i.no_of_members}}</p>
 	          </div>
 	        </div>
 	        <p> <br></p>

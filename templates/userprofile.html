@@ -5,9 +5,7 @@
 <title> Event_z </title>
 
 {% endblock %}
-
 {% block content %}
-
 <!--navbar section start -->
 <nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
   <div class="container-fluid p-0">      
@@ -35,15 +33,13 @@
   </div>
 </nav> 
 <!--navbar section end -->
-
-
 <!--modal section start-->
 <section class="banner section bg-registration overlay-dark" >
 	<div class="container text-center">
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="block">
-				<div class=" ">
+				<div class="">
            <button type="submit" class="btn btn-warning btn-lg"  data-toggle ="modal" data-target = "#modal_add" ><b>Add Event &nbsp;+</b></button>
         </div>
 				</div>
@@ -61,7 +57,7 @@
            {% csrf_token %}
             <label for="event_name" class = "text-secondary ">Event Name: &nbsp; </label>
             <<div style="text-align: center;">
-            <input id="event_name" type="text" name="event_name" class="w-75" placeholder =" enter event name here ..."></div>
+            <input id="event_name" type="text" name="event_name" class="w-75" placeholder =" event name here ..."></div>
             <br><br>
             <label for="desc" class = "text-secondary ">Description:&nbsp; </label>
             <div style="text-align: center;">
@@ -69,7 +65,7 @@
             <br><br>
             <label for="memb" class = "text-secondary ">List of Members:&nbsp; </label>
             <div style="text-align: center;">
-            <input id="memb" type="text" name="no_of_members" class="w-75"  placeholder =" no of members ..."></div>
+            <input id="memb" type="text" name="no_of_members" class="w-75"  placeholder ="no of member"></div>
             <br><br>   <br><br>            
             <button type="submit" name="save" class="btn btn-success btn-sm " style =" float:right"><a  class="text-white">Save</a></button>            
             <button type="button" name="cancel" class="btn btn-danger btn-sm " style =" float:left"><a href= "{% url 'userprofile' %}" class="text-white" >Cancel</a></button>
@@ -79,7 +75,5 @@
     </div>
   </div>
 </div>
-
 <!--modal section end-->
-
 {% endblock %}
