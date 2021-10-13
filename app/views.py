@@ -48,7 +48,14 @@ class userProfile(APIView):
         serializer_obj = EventSerializer(data=request.data)
         if serializer_obj.is_valid():
             serializer_obj.save()
-            return render(request,'home.html', status=status.HTTP_201_CREATED)
+            print(123)
+            data = serializer_obj.data
+            evnt_name = data['event_name']
+            price = data['price']
+            evnt_id = data['id']             
+            print(evnt_id)           
+
+            return render(request,'checkout.html',{'name':evnt_name,'price':price,'id':evnt_id} ,status=status.HTTP_201_CREATED)
         return HttpResponse('All the fields are required.', status=status.HTTP_400_BAD_REQUEST)
 
 class Logout(APIView):
@@ -59,57 +66,58 @@ class Logout(APIView):
 
 # stripe section
 
-import stripe 
-from django.conf import settings 
-from django.http import JsonResponse
-
+import stripe
+from django.shortcuts import redirect,reverse
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-class SuccessView(TemplateView):
-  template_name = "success.html"
-
-class CancelView(TemplateView):
-  template_name = "cancel.html"
-
-class LandingPage(TemplateView):
-  template_name = "landing.html"
-  def get_context_data(self, **kwargs):
-      event = Events.objects.get(event_name = "Eventz 01")
-      context = super(LandingPage, self).get_context_data(**kwargs)
-      context.update({
-        "STRIPE_PUBLIC_KEY":settings.STRIPE_PUBLIC_KEY,
-        "event":event,
-      })
-      return context
-
-
 class CreateCheckoutSessionView(APIView):
   def post(self,request,*args, **kwargs):
+    print(343)
+    host = self.request.get_host()
+    print(host)
     event_id = self.kwargs["pk"]
+    print(event_id)
     event = Events.objects.get(id = event_id)
-    print(event)
-    YOUR_DOMAIN = "http://127.0.0.1:8000"
+    print(909)
     checkout_session = stripe.checkout.Session.create(
             line_items=[
-                {# TODO: replace this with the `price` of the product you want to sell
-                    'proce_data':{
-
-                        'currency':'usd',
-                        'unit_amount':event.price,
-                        'product_data':{
-                          'name':event.event_name,
-                        }
-                    },                                       
-                    'quantity': 1,
-                },
-            ],
+                    {
+                        'name': event.event_name,
+                        'quantity': 1,
+                        'currency': 'inr',
+                        'amount': event.price,
+                    }
+                ],
             payment_method_types=[
               'card',
             ],
             mode='payment',
-            success_url=YOUR_DOMAIN + '/success/',
-            cancel_url=YOUR_DOMAIN + '/cancel/',
+            success_url = "http://{}{}".format(host,reverse('payment-success')),
+            cancel_url = "http://{}{}".format(host,reverse('payment-cancel')),
         )
-    return JsonResponse({ 'id':checkout_session.id })
+    
+    
+    return redirect(checkout_session.url,code=303)
+
+
+def paymentSuccess(request):
+  emp = Events.objects.all()
+  serializer = EventSerializer(emp, many=True) 
+  data = serializer.data
+  context = { 'payment-status':'success'}
+  print(context)
+  return render(request,'confirmation.html',context)
+
+def paymentCancel(request):
+  context = { 'payment-status':'cancel'}
+  return render(request,'confirmation.html',context)
+
+
+
+
+
+
+
+

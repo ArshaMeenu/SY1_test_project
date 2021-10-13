@@ -30,9 +30,9 @@
 	        <li class="nav-item">
 	          <a class="nav-link" href="#contact">Contact<span>/</span></a>
 	        </li>
-          <li class="nav-item">
+          {% comment %} <li class="nav-item">
 	          <a class="nav-link" href="#payment">Payment<span>/</span></a>
-	        </li>
+	        </li> {% endcomment %}
 	        <li class="nav-item">
 	          <a class="nav-link" href="{% url 'login' %}">Login</a>
 	        </li>
@@ -222,7 +222,23 @@
 
 <!--payment section start -->
 
-	<section class="cta-ticket bg-ticket overlay-dark" id ="payment">
+{% comment %} <section>
+      <div class="product">
+        <img
+          src="https://i.imgur.com/EHyR2nP.png"
+          alt="The cover of Stubborn Attachments"
+        />
+        <div class="description">
+          <h3>Stubborn Attachments</h3>
+          <h5>$20.00</h5>
+        </div>
+      </div>
+      <form action="/create-checkout-session" method="POST">
+        <button type="submit" id="checkout-button">Checkout</button>
+      </form>
+    </section> {% endcomment %}
+{% comment %} 
+	 <section class="cta-ticket bg-ticket overlay-dark" id ="payment">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">					
@@ -235,8 +251,7 @@
 			</div>
 		</div>
 		<div class="image-block"><img src="{% static 'images/speakers/speaker-ticket.png' %}" alt="" class="img-fluid"></div>
-	</section>
-
+	</section>  {% endcomment %}
 <!--payment section end -->
 
 <!--contact section start -->

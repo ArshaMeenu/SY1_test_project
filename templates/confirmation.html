@@ -1,0 +1,89 @@
+<html>
+<head>
+  <title>Thanks for your order!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <section>
+    <p>
+      <form action="" method="post">
+           {% csrf_token %}                     
+            <button type="submit" name="save" class="btn btn-success btn-sm approve_button" id="confirm_button" style =" float:right">Confirm</button>            
+            <button type="button" name="cancel" class="btn btn-danger btn-sm " style =" float:left"><a href= "{% url 'userprofile' %}" class="text-white" >Cancel</a></button>
+          
+          </form>
+    </p>
+  </section>
+{% comment %} 
+  <section>
+    <p>Forgot to add something to your cart? Shop around then come back to pay!</p>
+  </section> {% endcomment %}
+
+
+<script>
+    $(document).ready(function() {
+    $(".confirm_button").click(function() {
+      console.log("hai")
+         {{evnt_data}}
+        var token = '{{csrf_token}}'
+        var evnt_id = $("#evnt_data").val()
+       
+         blockUI();
+            fetch("{% url 'home' %}", {
+            method: 'post',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',"X-CSRFToken":token
+            },
+            body: JSON.stringify({
+                "event_id":evnt_id,
+                
+                            })
+            
+            })
+           
+
+            .then(function(res){ return res.json(); })
+            .then(function(data){ 
+                
+                unblockUI();
+
+                if(data.success==true){
+                  const toast = swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 6000,
+                padding: '2em'
+            });
+                    
+                  toast({
+                type: 'success',
+                title: " successfully.",
+                padding: '2em',
+            }).then(() => {
+            location.reload();
+            });
+           
+        }
+        else{
+            toast({
+                "title":"Oops!",
+                type: 'error',
+                "text":data.message,
+               
+                padding: '2em'
+              }
+        
+              )}
+    }); 
+ 
+    });
+    });
+
+
+</script> 
+
+</body>
+</html>
