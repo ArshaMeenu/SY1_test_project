@@ -14,9 +14,6 @@ urlpatterns = [
 
 
 
-    # path('',views.LandingPage.as_view(),name = "langing_page"),
-    # 
-
 
 
 

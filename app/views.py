@@ -13,13 +13,28 @@ from events.serializers import *
 from rest_framework import status
 from .models import *
 
+# stripe section
+import stripe
+from django.shortcuts import redirect,reverse
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+
 
 class Home(APIView):
   def get(self,request): 
-    emp = Events.objects.all()
+    emp = Events.objects.filter(is_active=1)
+    serializer = EventSerializer(emp, many=True) 
+    context = serializer.data    
+    return render(request, "home.html",{'data':context})
+
+  def post(self,request):
+    emp = Events.objects.filter(is_active=1)
     serializer = EventSerializer(emp, many=True) 
     context = serializer.data
     return render(request, "home.html",{'data':context})
+
+
 
 class Login(APIView):
   permission_classes = (AllowAny,)
@@ -46,15 +61,12 @@ class userProfile(APIView):
 
   def post(self, request, *args, **kwargs):
         serializer_obj = EventSerializer(data=request.data)
-        if serializer_obj.is_valid():
+        if serializer_obj.is_valid():            
             serializer_obj.save()
-            print(123)
             data = serializer_obj.data
             evnt_name = data['event_name']
             price = data['price']
-            evnt_id = data['id']             
-            print(evnt_id)           
-
+            evnt_id = data['id']            
             return render(request,'checkout.html',{'name':evnt_name,'price':price,'id':evnt_id} ,status=status.HTTP_201_CREATED)
         return HttpResponse('All the fields are required.', status=status.HTTP_400_BAD_REQUEST)
 
@@ -66,21 +78,14 @@ class Logout(APIView):
 
 # stripe section
 
-import stripe
-from django.shortcuts import redirect,reverse
-
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
-
 class CreateCheckoutSessionView(APIView):
   def post(self,request,*args, **kwargs):
-    print(343)
     host = self.request.get_host()
-    print(host)
     event_id = self.kwargs["pk"]
-    print(event_id)
-    event = Events.objects.get(id = event_id)
-    print(909)
+    event = Events.objects.get(id=event_id) 
+    event.is_active = 1
+    event.save()  
+
     checkout_session = stripe.checkout.Session.create(
             line_items=[
                     {
@@ -96,23 +101,17 @@ class CreateCheckoutSessionView(APIView):
             mode='payment',
             success_url = "http://{}{}".format(host,reverse('payment-success')),
             cancel_url = "http://{}{}".format(host,reverse('payment-cancel')),
-        )
-    
+        )     
     
     return redirect(checkout_session.url,code=303)
 
 
-def paymentSuccess(request):
-  emp = Events.objects.all()
-  serializer = EventSerializer(emp, many=True) 
-  data = serializer.data
-  context = { 'payment-status':'success'}
-  print(context)
-  return render(request,'confirmation.html',context)
+def paymentSuccess(request):  
+  return render(request,'success.html')
 
 def paymentCancel(request):
   context = { 'payment-status':'cancel'}
-  return render(request,'confirmation.html',context)
+  return render(request,'cancel.html',context)
 
 
 
