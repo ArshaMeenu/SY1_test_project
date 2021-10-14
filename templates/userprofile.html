@@ -53,7 +53,7 @@
       <div class="modal-body text-center" style ="background-color :#032161">
             <p class = "text-warning h3 ">Create Events...</p>
             <br><br>
-           <form action="{% url 'userprofile' %}" method="post">
+           <form action="{% url 'userprofile' %}" name= "myform" method="post">
            {% csrf_token %}
             <label for="event_name" class = "text-secondary ">Event Name: &nbsp; </label>
             <<div style="text-align: center;">
@@ -68,7 +68,7 @@
             <div style="text-align: center;">
             <input id="price" type="text" name="price" class="w-75"  placeholder =""></div>
             <br><br>   <br><br>            
-            <button type="submit" name="save" class="btn btn-success btn-sm " style =" float:right"><a  class="text-white">Save</a></button>            
+            <button type="submit" name="save" class="btn btn-success btn-sm "onclick="myFunction()" style =" float:right"><a  class="text-white">Save</a></button>            
             <button type="button" name="cancel" class="btn btn-danger btn-sm " style =" float:left"><a href= "{% url 'userprofile' %}" class="text-white" >Cancel</a></button>
 
           </form>
@@ -77,4 +77,18 @@
   </div>
 </div>
 <!--modal section end-->
+
+<script>
+function myFunction() {
+    var a = document.forms["myform"]["event_name"].value;
+    var b = document.forms["myform"]["description"].value;
+    var c = document.forms["myform"]["price"].value;
+  if (a == null || a == "", b == null || b == "", c == null || c == "") {
+     alert("Please Fill All Required Field");
+      return false;
+  }
+  return true;
+}
+
+</script>
 {% endblock %}

@@ -68,7 +68,7 @@ class userProfile(APIView):
             price = data['price']
             evnt_id = data['id']            
             return render(request,'checkout.html',{'name':evnt_name,'price':price,'id':evnt_id} ,status=status.HTTP_201_CREATED)
-        return HttpResponse('All the fields are required.', status=status.HTTP_400_BAD_REQUEST)
+        return render(request,'userprofile.html',status=status.HTTP_400_BAD_REQUEST)
 
 class Logout(APIView):
   def get(self,request, *args, **kwargs):
