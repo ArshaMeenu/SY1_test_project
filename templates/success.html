@@ -37,8 +37,8 @@
 				<div class="">
          <form action="{% url 'home' %}" method="post">
            {% csrf_token %} 
-            <button type="submit" name = "confirm" class="btn btn-success btn-sm text-center" >Confirm</button>            
-            <button type="button" name="cancel" class="btn btn-danger btn-sm ">Cancel</a></button>
+            <button type="submit" name = "confirm" class="btn btn-success btn-md " >Confirm</button> &nbsp;&nbsp;           
+            <button type="button" name="cancel" class="btn btn-danger btn-sm "><a href= "{% url 'userprofile' %}" class="text-white" >Cancel</a></button>
           
           </form>
         </div>
