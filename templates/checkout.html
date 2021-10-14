@@ -42,7 +42,7 @@
       
       <form action="{% url 'create-checkout-session' id %}" method="POST">
       {% csrf_token %}
-        <button type="submit" id="checkout-button" class="btn btn-info btn-md text-light ">Checkout</button>&nbsp;&nbsp;
+        <button type="submit" id="checkout-button" class="btn btn-info btn-md text-light ">Checkout</button>  
         <button type="button" name="cancel" class="btn btn-danger btn-sm " ><a href= "{% url 'home' %}" class="text-white" >Cancel</a></button>
 
       </form>

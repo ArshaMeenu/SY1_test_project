@@ -53,7 +53,7 @@ class Login(APIView):
             else:
               return HttpResponse("Inactive user.")
         else:
-          return HttpResponse(f"{username}  {password} doesn't exit or incorrect.")
+          return HttpResponse(f"username or password doesn't exit or incorrect.")
 
 class userProfile(APIView):
   def get(self,request, *args, **kwargs):
