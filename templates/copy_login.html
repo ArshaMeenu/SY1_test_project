@@ -1,0 +1,69 @@
+  {% extends 'index.html' %}
+  {% load static %}
+
+  {% block additional_styles %}
+        <title> Event_z </title>  
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  {% endblock %}
+
+  {% block content %}
+  
+  <!--navbar section start -->
+
+  <nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
+    <div class="container-fluid p-0">
+        <!-- logo -->
+        <a class="navbar-brand" href="#">
+          <p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
+          <ul class="navbar-nav  ">        
+            <li class=" active" >
+              <a class="nav-link " href="{% url 'home' %}"  >Home           
+              </a>         
+            </li>
+          </ul>       
+        </div>
+    </div>
+  </nav>
+    <!--navbar section end -->
+
+    <!--login section start -->
+
+  <section class="section speakers bg-speaker overlay-lighter" >
+         <div> 
+          <br><br><br><br><br>
+          <div class="container-fluid p-0">
+              <div id="login-row" class="row justify-content-center align-items-center">
+                  <div id="login-column" class="col-md-6">
+                      <div id="login-box" class="col-md-12">
+
+                          <form id="login-form" class="form" action="" method="post">
+                                           {% csrf_token %}
+                              <h3 class="text-center text-warning">Login</h3>
+                              <div class="form-group">
+                                  <label for="username" class="text-info">Username:</label><br>
+                                  <input type="text" name="username" id="username" class="form-control" required>
+                              </div>
+                              <div class="form-group">
+                                  <label for="password" class="text-info">Password:</label><br>
+                                  <input type="text" name="password" id="password" class="form-control" required>
+                              </div>
+                              <div class="form-group text-right">
+                                  <button type="submit" name="cancel" class="btn btn-success btn-sm " style =" float:right"><a  class="text-white">Login</a></button>
+                                  <button type="button" name="cancel" class="btn btn-danger btn-sm " style =" float:left"><a href= "{% url 'login' %}" class="text-white">Cancel</a></button>
+                              </div>                               
+                          </form>
+                      </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <!--navbar section end -->
+
+  {% endblock %}
