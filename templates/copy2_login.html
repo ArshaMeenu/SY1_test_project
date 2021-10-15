@@ -1,0 +1,116 @@
+  {% extends 'index.html' %}
+  {% load static %}
+
+  {% block additional_styles %}
+        <title> Event_z </title>  
+        <link href="{% static 'images/speakers/lotus.png' %}" rel="stylesheet">
+       <style>
+       .btn.disabled{
+	          background: #888181;
+         
+            }
+        .btn.enabled{
+            background: #1dbf73;
+            cursor: pointer;
+            color:white;
+          }
+        .error_msg{
+          font-size: 15px;
+          margin-bottom: 5px;	
+          color: #f74040;
+          display: none;
+      }
+       </style> 
+  {% endblock %}
+
+  {% block content %}
+  
+  <!--navbar section start -->
+
+  <nav class="navbar main-nav border-less fixed-top navbar-expand-lg ">
+    <div class="container-fluid p-0">
+        <!-- logo -->
+        <a class="navbar-brand" href="#">
+          <p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="fa fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
+          <ul class="navbar-nav  ">        
+            <li class=" active" >
+              <a class="nav-link " href="{% url 'home' %}"  >Home           
+              </a>         
+            </li>
+          </ul>       
+        </div>
+    </div>
+  </nav>
+    <!--navbar section end -->
+
+    <!--login section start -->
+<div></div>
+  <section class="h-100 banner bg-subscribe overlay-light" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+                <div class="text-center">
+                  <img src="{% static 'images/speakers/lotus.png' %}" style="width: 185px;" alt="logo">
+                  <h4 class="mt-1 mb-5 pb-1">We are The Event_z Team</h4>
+                </div>
+                <form method="post" action="{% url 'userprofile' %}" onsubmit="return validation();">
+                  <p>Please login to your account</p><br>
+
+                  <div class="input_wrap field email">
+                    <div class="input_field">
+                      <input type="text" autocomplete="off" name = "username" class=" form-control input" id="input_text">
+                      <label for="input_text">Username</label>
+                      <i class="icon fas fa-envelope"></i>
+                      <i class="error error-icon fas fa-exclamation-circle"></i>
+                    </div>
+                      <div class="error error-txt">Email can't be blank
+                      </div>
+                    <br>                    
+                  </div>
+
+                  <div class="input_wrap field password">
+                    <div class="input_field">
+                      <input type="password" autocomplete="off" name = "password" class="form-control input" id="input_password">
+                      <label for="input_password">Password</label>
+                      <i class="icon fas fa-lock"></i>
+                      <i class="error error-icon fas fa-exclamation-circle"></i>
+                    </div>
+                      <div class="error error-txt">Password can't be blank
+                      </div>
+                    <br>
+                  </div>
+
+                  <div class="input_wrap">
+                    <span class="error_msg">Incorrect username or password. Please try again</span>
+                    <input type="submit" id="login_btn" class="btn disabled" value="Login" disabled="true">
+                  </div>                 
+                  
+                </form>
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center bg-info  ">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4 ">
+                <h4 class="mb-4 text-white">We are more than just a company</h4>
+                <p class="small mb-0 text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src = "{% static 'js/script.js' %}"> </script>
+
+<!--login section end -->
+
+  {% endblock %}

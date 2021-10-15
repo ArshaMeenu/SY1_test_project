@@ -1,32 +1,55 @@
-var input_fields = document.querySelectorAll('.input');
-      var login_btn  = document.querySelector('#login_btn');
+const form = document.querySelector("form");
+userField = form.querySelector(".username"),
+userInput = userField.querySelector("input"),
+passwordField = form.querySelector(".password"),
+passwordInput = passwordField.querySelector("input");
 
-      input_fields.forEach(function(input_item){
-        console.log(input_item);
-        input_item.addEventListener("input",function(){
-          console.log(input_item.value);
-          if(input_item.value.length > 3){
+form.onsubmit = (e)=>{
+  e.preventDefault(); //preventing from form submitting
+  //if username and password is blank then add shake class in it else call specified function
+  (userInput.value == "") ? userField.classList.add("shake", "error") : checkUsername();
+  (passwordInput.value == "") ? passwordField.classList.add("shake", "error") : checkPass();
 
-            login_btn.disabled = false;
-            login_btn.className = "btn enabled ";
-               }
-         });
-        });
-function validation(){
-  var input_text = document.querySelector("#input_text");
-  var input_password = document.querySelector("#input_password");
-  var error_msg = document.querySelector(".error_msg");
+  setTimeout(()=>{ //remove shake class after 500ms
+    userField.classList.remove("shake");
+    passwordField.classList.remove("shake");
+  }, 500);
 
-  if (input_text.value.length <= 3 || input_password.value.length <= 3){
-    error_msg.style.display = "inline-block";
-    input_text.style.border = "1px solid red";
-    input_password.style.border = "1px solid red";
+  userInput.onkeyup = ()=>{checkUsername();} //calling checkUsername function on username input keyup
+  passwordInput.onkeyup = ()=>{checkPass();} //calling checkPassword function on pass input keyup
 
-    return false;
+  function checkUsername(){ //checkUsername function
+    let pattern = /^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/; //pattern for validate username
+    if(!userInput.value.match(pattern)){ //if pattern not matched then add error and remove valid class
+      userField.classList.add("error");
+      userField.classList.remove("valid");
+      let errorTxt = userField.querySelector(".error-txt");
+      //if username value is not empty then show please enter valid username else show username can't be blank
+      (userInput.value != "") ? errorTxt.innerText = "Enter a valid username with atleast 3 letters." : errorTxt.innerText = "username can't be blank";
+    }else{ //if pattern matched then remove error and add valid class
+      userField.classList.remove("error");
+      userField.classList.add("valid");
     }
-  else{
-    return true;
+  }
+  function checkPass(){ //checkPass function
+    let pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/; //pattern for validate username
+
+    if(!passwordInput.value.match(pattern)){ //if pass is empty then add error and remove valid class
+      passwordField.classList.add("error");
+      passwordField.classList.remove("valid");
+      let errorTxt = passwordField.querySelector(".error-txt");
+      //if username value is not empty then show please enter valid username else show username can't be blank
+      (passwordInput.value != "") ? errorTxt.innerText = "Minimum eight characters, at least one lower case,at least one upper case , one digit and one special character. " : errorTxt.innerText = "";
+
+
+    }else{ //if pass is empty then remove error and add valid class
+      passwordField.classList.remove("error");
+      passwordField.classList.add("valid");
+    }
   }
 
+  //if userField and passwordField doesn't contains error class that mean user filled details properly
+  if(!userField.classList.contains("error") && !passwordField.classList.contains("error")){
+    window.location.href = form.getAttribute("action"); //redirecting user to the specified url which is inside action attribute of form tag
+  }
 }
-   
