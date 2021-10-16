@@ -1,22 +1,32 @@
+// var input_fields = document.querySelectorAll('.input');
+// var login_btn  = document.querySelector('#login_btn');
+
 const form = document.querySelector("form");
 userField = form.querySelector(".username"),
 userInput = userField.querySelector("input"),
 passwordField = form.querySelector(".password"),
 passwordInput = passwordField.querySelector("input");
 
-form.onsubmit = (e)=>{
-  e.preventDefault(); //preventing from form submitting
-  //if username and password is blank then add shake class in it else call specified function
+form.onsubmit =(e)=>{
+  
+  e.preventDefault();
+  console.log("Start");
+  console.log(userInput.value);
   (userInput.value == "") ? userField.classList.add("shake", "error") : checkUsername();
-  (passwordInput.value == "") ? passwordField.classList.add("shake", "error") : checkPass();
 
-  setTimeout(()=>{ //remove shake class after 500ms
+  (passwordInput.value == "") ? passwordField.classList.add("shake","error"):checkPassword();
+
+  setTimeout(()=>{
     userField.classList.remove("shake");
     passwordField.classList.remove("shake");
-  }, 500);
-
-  userInput.onkeyup = ()=>{checkUsername();} //calling checkUsername function on username input keyup
-  passwordInput.onkeyup = ()=>{checkPass();} //calling checkPassword function on pass input keyup
+  },500);
+//  onkeyup event occurs when the user releases a key (on the keyboard).
+  userInput.onkeyup = ()=>{
+      checkUsername();
+    }
+  passwordInput.onkeyup=()=>{
+    checkPassword();
+  }
 
   function checkUsername(){ //checkUsername function
     let pattern = /^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/; //pattern for validate username
@@ -31,25 +41,50 @@ form.onsubmit = (e)=>{
       userField.classList.add("valid");
     }
   }
-  function checkPass(){ //checkPass function
-    let pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/; //pattern for validate username
 
-    if(!passwordInput.value.match(pattern)){ //if pass is empty then add error and remove valid class
+  function checkPassword(){
+    let pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/; //pattern for validate username
+    if(!passwordInput.value.match(pattern)){
       passwordField.classList.add("error");
       passwordField.classList.remove("valid");
-      let errorTxt = passwordField.querySelector(".error-txt");
-      //if username value is not empty then show please enter valid username else show username can't be blank
-      (passwordInput.value != "") ? errorTxt.innerText = "Minimum eight characters, at least one lower case,at least one upper case , one digit and one special character. " : errorTxt.innerText = "";
-
-
-    }else{ //if pass is empty then remove error and add valid class
+      let errorText = passwordField.querySelector('.error-txt');
+      (passwordInput.value != "")? errorText.innerText ="Minimum eight characters, at least one lower case,at least one upper case , one digit and one special character." :errorText.innerText = "Password can't be blank."
+    }
+    else{
       passwordField.classList.remove("error");
       passwordField.classList.add("valid");
     }
   }
 
-  //if userField and passwordField doesn't contains error class that mean user filled details properly
   if(!userField.classList.contains("error") && !passwordField.classList.contains("error")){
-    window.location.href = form.getAttribute("action"); //redirecting user to the specified url which is inside action attribute of form tag
+
+
+    var posting = $.post( url, { s: term } );
+    data = {
+          'username':userInput.value,
+          'password':passwordInput.value}
+    }
+    posting.done(function( data ) {
+      alert(data);
+    });
+  //   const url = "{% url 'login' %}";
+  //   data = {
+  //     'username':userInput.value,
+  //     'password':passwordInput.value}
+  //   success = "login"
+  //   dataType = "json"
+  //   console.log("end");
+
+  //   $.ajax({
+  //     type: 'POST',
+  //     url: url,  
+  //     data: data,
+  //     success: success  ,
+  //     dataType: dataType
+      
+  // });
+
   }
+
+
 }

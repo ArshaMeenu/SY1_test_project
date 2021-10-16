@@ -7,15 +7,26 @@
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
        <style>
-        .errspan {
-          float: right;
-          margin-right: 10px;
-          margin-top: -25px;
-          {% comment %} z-index: 1; {% endcomment %}
-          color: gray;
-        }
-        
-        form .field{
+          ::selection{
+            color: #fff;
+            background: #5372F0;
+          }
+          .wrapper{
+            width: 380px;
+            padding: 40px 30px 50px 30px;
+            background: #fff;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 10px 10px 15px rgba(0,0,0,0.1);
+          }
+          .wrapper header{
+            font-size: 35px;
+            font-weight: 600;
+          }
+          .wrapper form{
+            margin: 40px 0;
+          }
+          form .field{
             width: 100%;
             margin-bottom: 20px;
           }
@@ -103,8 +114,13 @@
             text-align: left;
             margin-top: -10px;
           }
-          
-          
+          .wrapper a{
+            color: #5372F0;
+            text-decoration: none;
+          }
+          .wrapper a:hover{
+            text-decoration: underline;
+          }
           form input[type="submit"]{
             height: 50px;
             margin-top: 30px;
@@ -119,7 +135,6 @@
           form input[type="submit"]:hover{
             background: #2c52ed;
           }
-          
        </style> 
   {% endblock %}
 
@@ -165,43 +180,36 @@
                   <h4 class="mt-1 mb-5 pb-1">We are The Event_z Team</h4>
                 </div>             
                         <div class="input_wrap">
-                        {% if msg %}
-                          <p style = "color:red">{{msg}}</p><br>
-                        {% endif %}
+                          {% comment %} <p>{{message}}</p><br> {% endcomment %}
 
                           
-          <form method="post" action="" >
-                  <p>Please login to your account</p><br>
 
-                  <div class="input_wrap field username">
-                    <div class="input_field ">
-                      <input type="text" autocomplete="off" name = "username" class="form-control "  id="input_text" placeholder = "username" >
-                      <span class="icon icon fas fa-user errspan"></span>                     
-                      
-                    </div>
-                      <div class="error error-txt">Username can't be blank.
-                      </div> 
-                    <br>                    
-                  </div>
-
-                  <div class="input_wrap field password">
-                    <div class="input_field">
-                      <input type="password" autocomplete="off" name = "password" class="form-control  password" id="input_password" placeholder ="password">
-                      
-                      <span class="icon icon fas fa-lock errspan"></span>                    
-                     
-                    </div>
-                      <div class="error error-txt">Password can't be blank
-                      </div> 
-                    <br>
-                  </div>
-
-                  <div class="input_wrap">
-                    <input type="submit" value="Login" >
-                  </div>             
-                  
-                </form>
-                </div>                                                 
+                        <form method="post" action="" >
+                        {% csrf_token %}
+                            <div class="field username">
+                              <div class="input-area">
+                              {% comment %} <label for="username" class="text-info">Username:</label><br>{% endcomment %}
+                              {% comment %} {{ form.username }}                                {% endcomment %}
+                                <input type="text" name="username" placeholder="username"> 
+                                <i class="icon fas fa-user" ></i>
+                                <i class="error error-icon fas fa-exclamation-circle"></i>
+                              </div>
+                              <div class="error error-txt">Username can't be blank</div>
+                            </div>
+                            <div class="field password">
+                              <div class="input-area">
+                               {% comment %} <label for="password" class="text-info">Password:</label><br>{% endcomment %}
+                               {{ form.password }} 
+                                <input type="password" name ="password" placeholder="Password">
+                                <i class="icon fas fa-lock"></i>
+                                <i class="error error-icon fas fa-exclamation-circle"></i>
+                              </div>
+                              <div class="error error-txt" id ="error-password">Password can't be blank</div>
+                            </div>
+                            <div class="pass-txt"><a href="#">Forgot password?</a></div>
+                            <input type="submit" value="Login">
+                          </form>
+                        </div>                                                 
                 
               </div>
             </div>
