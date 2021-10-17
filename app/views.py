@@ -12,6 +12,9 @@ from django.contrib import messages
 from events.serializers import *
 from rest_framework import status
 from .models import *
+from django.views.generic.list import ListView
+
+
 
 # stripe section
 import stripe
@@ -20,21 +23,17 @@ from django.shortcuts import redirect,reverse
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
-
-class Home(APIView):
-  def get(self,request): 
-    name = []
-    emp = Events.objects.filter(is_paid=1).all().values()
-    serializer = EventSerializer(emp, many=True) 
-    event_data = serializer.data   
-    print("end") 
-    print(event_data)
-    # for i in range(len(event_data)):
-    #   event_name = event_data[i].get('event_name')
-    #   print(123)
-    #   print(event_name)
-    #   name.append(event_name)    
-    return render(request, "home.html",{'data':event_data})
+from django.core.paginator import  Paginator
+class Home(ListView): 
+  
+  def get(self,request):     
+    event_list = Events.objects.filter(is_paid=1).all().values()
+    paginator = Paginator(event_list, 4) # Show 4 events per page.
+    page_request_variable = "page"
+    page_number = request.GET.get(page_request_variable)
+    event_obj = paginator.get_page(page_number)
+        
+    return render(request, "home.html",{'data':event_obj})
 
   def post(self,request):
     emp = Events.objects.filter(is_paid=1).all()
