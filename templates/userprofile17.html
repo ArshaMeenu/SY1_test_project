@@ -1,0 +1,188 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block additional_styles %}
+<title> Event_z </title>
+<style>
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.currencyinput {
+    border: 1px inset white;
+}
+.currencyinput input {
+    border: 0;
+}
+</style>
+{% endblock %}
+{% block content %}
+<!--navbar section start -->
+<nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
+  <div class="container-fluid p-0">      
+      <a class="navbar-brand" href="#">
+        <p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="fa fa-bars"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
+      <ul class="navbar-nav"> 
+         <input type="submit" class="btn btn-warning btn-sm mr-5"  data-toggle ="modal" data-target = "#modal_add" value ="add event+" >    
+
+        <li class=" active" >
+          <a class="nav-link " href="{% url 'home' %}">Home</a>                   
+        </li>         
+        
+      </ul>
+      <ul class="navbar-nav  ">
+      <li class="">
+          <a class="nav-link text-primary" href="#">Welcome {{request.session.username}} !!!</a>
+        </li>        
+        <li class="">
+          <a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">logout</a>
+        </li>  
+      </ul>
+      </div>
+  </div>
+</nav> 
+<!--navbar section end -->
+
+
+<!--modal section start-->
+<section class="banner section  overlay-dark" >
+	<div class="container ">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="block ">
+				<div class="">     
+
+        <div class="card text-center " style="width: 18rem;border:2px dotted red;border-radius:10px">
+              <img class="card-img-top img-thumbnail" src="{% static 'images/speakers/profile.png' %}" alt="Card image cap" >
+            <div class="card-body text-center">
+              <h5 class="card-title">{{request.session.username}}</h5>
+              <p class="card-text">Users can also update their contact details under My Tasks/My Details.</p>
+              </div>
+          </div>
+         
+           {% comment %} <button type="submit" class="btn btn-warning btn-lg"  data-toggle ="modal" data-target = "#modal_add" ><b>Add Event &nbsp;+</b></button> {% endcomment %}
+        </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--modal section end-->
+
+
+<!--modal for add event section start-->
+ <div class="modal" tabindex="-1" id="modal_add">
+  <div class="modal-dialog">
+    <div class="modal-content">      
+      <div class="modal-body text-center" style ="background-color :#032161">
+            <p class = "text-warning h3 ">Create Events</p>
+            <br><br>
+           <form action="{% url 'userprofile' %}" name= "myform" method="POST">
+           {% csrf_token %}
+            <label for="event_name" class = "text-secondary ">Name: &nbsp; </label>
+            
+            <input id="event_name" type="text" name="event_name" class=" form-control" placeholder =" Enter event name here ..." required="required" > <br><br> 
+          
+                <label for="desc" class = "text-secondary ">Description:&nbsp; </label>
+                   <textarea name="description" rows="3" cols="40" class="form-control"  placeholder =" description ..."  required="required"></textarea>
+                  
+            <br><br> 
+            
+              <label for="price" class = "text-secondary ">Event Rate :&nbsp; </label><br>
+              <input type="number" placeholder ="₹" value="" min="0" class="form-control" step="any" required/>
+            
+             <br><br> 
+          <div class ="container">  
+            <div class="row">
+                  <div class="col-6">
+                    <label>Start Date</label>  
+                      <input class="input-text date-class" name="start_date" type="date" required="required">
+                  <br>
+                  </div>
+                  <div class="col-6">
+                    <label>End Date</label>
+                  <input class="input-text date-class" name="end_date" type="date"  required="required">
+                </div>
+              </div>     
+            </div>          
+             <br><br>           
+            <button type="submit" name="save" class="btn btn-success btn-sm "  style ="float:right" data-toggle ="modal" data-target = "#modal_pay"><a  class="text-white">Save</a></button>            
+            <button type="button" name="cancel" class="btn btn-danger btn-sm " style ="float:left"><a href="{% url 'userprofile' %}" class="text-white" >Cancel</a></button>
+          </form>
+      </div>     
+    </div>
+  </div>
+</div>
+<!--modal for add event section end-->
+
+<!--modal for payment confirm section start-->
+
+<!-- Modal -->
+
+{% comment %} <div class="modal fade" id="modal_pay" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <p>Only by paying ₹.10000,can add the created event into the Event_z site.Are you ready to pay?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Proceed</button>
+      </div>
+    </div>
+  </div>
+</div> {% endcomment %}
+
+
+{% comment %} 
+<div class="modal " tabindex="-1"  id="modal_pay">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Payment Confirmation</h5>       
+      </div>
+      <div class="modal-body">
+        <p>Only by paying ₹.10000,can add the created event into the Event_z site.Are you ready to pay?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Proceed</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div> {% endcomment %}
+<!--modal for payment confirm section end-->
+
+
+<!--script for not null -->
+
+<script>
+function myFunction() {
+    var a = document.forms["myform"]["event_name"].value;
+    var b = document.forms["myform"]["description"].value;
+    var c = document.forms["myform"]["start_date"].value;
+    var d = document.forms["myform"]["end_date"].value;
+
+  if (a == null || a == "", b == null || b == "",c == null || c == "",d == null || d == "") {
+    // alert("Please Fill All Required Field");
+      return false;
+  }
+  return true;
+}
+
+</script>
+{% endblock %}

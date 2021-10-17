@@ -150,16 +150,15 @@
 
     <!--login section start -->
 <div></div>
-  <section class="h-100 banner bg-subscribe overlay-light" style="background-color: #eee;">
-  <div class="container py-5 h-100">
+  <section class="h-50 banner bg-subscribe overlay-light" style="background-color: #eee;">
+  <div class="container py-1 h-10">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-xl-10">
         <div class="card rounded-3 text-black">
           <div class="row g-0">
             <div class="col-lg-6">
-              <div class="card-body p-md-5 mx-md-4">
-                <div class="text-center">
-                    
+              <div class="card-body p-md-5 mx-md-1">
+                <div class="text-center">                   
 
                   <img src="{% static 'images/speakers/lotus.png' %}" style="width: 185px;" alt="logo">
                   <h4 class="mt-1 mb-5 pb-1">We are The Event_z Team</h4>
@@ -167,16 +166,13 @@
                         <div class="input_wrap">
                         {% if msg %}
                           <p style = "color:red">{{msg}}</p><br>
-                        {% endif %}
-
-                          
+                        {% endif %}                          
           <form method="post" action="" >
                   <p>Please login to your account</p><br>
-
                   <div class="input_wrap field username">
                     <div class="input_field ">
-                      <input type="text" autocomplete="off" name = "username" class="form-control "  id="input_text" placeholder = "username" >
-                      <span class="icon icon fas fa-user errspan"></span>                     
+                      <input type="text" autocomplete="off" name = "username" class="form-control "  id="input_text" placeholder = "username"  required>
+                      <span class="icon icon fas fa-user errspan"></span>                  
                       
                     </div>
                       <div class="error error-txt">Username can't be blank.
@@ -186,7 +182,7 @@
 
                   <div class="input_wrap field password">
                     <div class="input_field">
-                      <input type="password" autocomplete="off" name = "password" class="form-control  password" id="input_password" placeholder ="password">
+                      <input type="password" autocomplete="off" name = "password" class="form-control  password" id="input_password" placeholder ="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one digit and one uppercase and lowercase letter, and at least 8 or more characters" required>
                       
                       <span class="icon icon fas fa-lock errspan"></span>                    
                      
