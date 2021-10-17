@@ -28,23 +28,20 @@
   </div>
 </nav> 
 <!--navbar section end -->    
-    
+
+
 	<section class="banner  overlay-light text-center text-dark">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
             <div class="product">       
               <div class="description">
-              
-              {% comment %} <div class="">
-                  <p>Only by paying ₹.10000,can add the created event into the Event_z site.Are you ready to pay?</p>
-                </div> {% endcomment %}
-                {% comment %} <h3 >{{name}}</h3><br>
-                <h5 >${{price}}</h5><br> {% endcomment %}
+                <h3 >{{request.session.event_name}}</h3><br>
+                <h5 >{{request.session.status}}</h5><br>
               </div>
             </div>
       
-      <form action="{% url 'login'  %}" method="POST">
+      <form action="{% url 'create-checkout-session' id %}" method="POST">
       {% csrf_token %}
         <button type="submit" id="checkout-button" class="btn btn-info btn-md text-light ">Checkout</button>&nbsp;&nbsp;
         <button type="button" name="cancel" class="btn btn-danger btn-sm " ><a href= "{% url 'home' %}" class="text-white" >Cancel</a></button>
@@ -54,4 +51,30 @@
       </div>
       </div>
     </section>
+{% comment %}     
+	<section class="banner  overlay-light text-center text-dark">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+            <div class="product">       
+              <div class="description">
+              
+               
+                 <h3 >Name : {{name}}</h3><br>
+                 <h5 >status : Not Paid</h5><br>  
+              </div>
+            </div><br>
+      <div class="">
+                  <p>Only by paying ₹.10000,can add the created event into the Event_z site.Are you ready to pay?</p>
+                </div> <br>
+      <form action="{% url 'create-checkout-session' id %}" method="POST">
+      {% csrf_token %}
+        <button type="submit" id="checkout-button" class="btn btn-info btn-md text-light ">Proceed </button>&nbsp;&nbsp;
+        <button type="button" name="cancel" class="btn btn-danger btn-sm " ><a href= "{% url 'home' %}" class="text-white" >Cancel</a></button>
+
+      </form>
+      </div>
+      </div>
+      </div>
+    </section> {% endcomment %}
  {% endblock %}

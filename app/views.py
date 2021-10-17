@@ -23,13 +23,13 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class Home(APIView):
   def get(self,request): 
-    emp = Events.objects.filter(is_paid=0)
+    emp = Events.objects.filter(is_paid=1)
     serializer = EventSerializer(emp, many=True) 
     context = serializer.data    
     return render(request, "home.html",{'data':context})
 
   def post(self,request):
-    emp = Events.objects.filter(is_active=1)
+    emp = Events.objects.filter(is_paid=1)
     serializer = EventSerializer(emp, many=True) 
     context = serializer.data
     return render(request, "home.html",{'data':context})
@@ -107,29 +107,39 @@ class Login(APIView):
 
 
 class userProfile(APIView):
-  def get(self,request, *args, **kwargs):
+  def get(self,request, *args, **kwargs):    
     return render(request,'userprofile.html')
 
-  def post(self, request, *args, **kwargs):
-        print(request.data)
+  def post(self, request, *args, **kwargs):        
         serializer_obj = EventSerializer(data=request.data)        
         if serializer_obj.is_valid():            
-            serializer_obj.save()
-            print(serializer_obj.data)
+            serializer_obj.save()            
             data = serializer_obj.data
+            print("start")
+            print(data)
             evnt_name = data['event_name']
-            start_date = data['start_date']  
-            amount = data['price']
+            evnt_id = data['id']  
+            payment_status = data['is_paid']
+            request.session['event_name']=evnt_name
+            request.session['status']=payment_status
+            request.session['id']=evnt_id
+
+
             return redirect("/paymentconfirm")     
             # return render(request,'paymentconfirm.html',status=status.HTTP_201_CREATED)
-                                       
-            # return render(request,'checkout.html',{'name':evnt_name,'start_date':start_date,'amount':amount} ,status=status.HTTP_201_CREATED)
+            # print("post userprofile")    
+            # return redirect(reverse('payment_confirm', kwargs={'name':evnt_name,'start_date':start_date,'status':payment_status}))                    
+            # return render(request,'paymentconfirm.html',{'name':evnt_name,'start_date':start_date,'status':payment_status} ,status=status.HTTP_201_CREATED)
         return render(request,'userprofile.html',status=status.HTTP_400_BAD_REQUEST)
 
 
 class paymentConfirm(APIView):
   def get(self,request, *args, **kwargs):
-    return render(request,'paymentconfirm.html')
+    print("middls")
+    print(request.session['id'])
+    id =request.session['id']
+    return render(request,'paymentconfirm.html',{'id':id})
+
 
 class Logout(APIView):
   def get(self,request, *args, **kwargs):
@@ -142,13 +152,15 @@ class Logout(APIView):
 
 class CreateCheckoutSessionView(APIView):
   def post(self,request,*args, **kwargs):
+   
     host = self.request.get_host()
+    
     event_id = self.kwargs["pk"]
     # serializer_obj = EventSerializer(data=request.data)        
     # if serializer_obj.is_valid():
     #   serializer_obj.save()
     event = Events.objects.get(id=event_id) 
-    event.is_active = 1
+    event.is_paid = 1
     event.save()  
 
     checkout_session = stripe.checkout.Session.create(
@@ -157,7 +169,7 @@ class CreateCheckoutSessionView(APIView):
                         'name': event.event_name,
                         'quantity': 1,
                         'currency': 'inr',
-                        'amount': event.price,
+                        'amount': 10000,
                     }
                 ],
             payment_method_types=[

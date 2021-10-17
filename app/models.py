@@ -4,7 +4,7 @@ from django_countries.fields import CountryField
 
 
 class Events(models.Model):
-  # event_id = models.AutoField(max_length=191,primary_key=True,unique=True, default=0)
+  user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
   event_name = models.CharField(max_length= 100, blank=True,null=True)
   description  = models.TextField(max_length= 255,blank=True,null=True)
   start_date = models.DateField(blank=True,null=True)
@@ -12,7 +12,7 @@ class Events(models.Model):
   is_paid = models.BooleanField(default=False,blank=True,null=True)  
   country =CountryField(multiple=True)
   # amount = models.IntegerField(default= 0) #rate of the event
-  price= models.DecimalField(max_digits=10, decimal_places=2,default= 0)
+  price= models.DecimalField(max_digits=10, decimal_places=2)
 
   def __str__(self):
         return self.event_name 
