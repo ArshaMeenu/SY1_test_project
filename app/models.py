@@ -1,24 +1,25 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+from django.core.validators import MinValueValidator
+import datetime
 
 
 class Events(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
   event_name = models.CharField(max_length= 100, blank=True,null=True)
   description  = models.TextField(max_length= 255,blank=True,null=True)
-  start_date = models.DateField(blank=True,null=True)
+  start_date = models.DateField(validators=[MinValueValidator(datetime.date.today)],blank=True,null=True)
   end_date = models.DateField(blank=True,null=True)
   is_paid = models.BooleanField(default=False,blank=True,null=True)  
   country =CountryField(multiple=True)
-  # amount = models.IntegerField(default= 0) #rate of the event
   price= models.DecimalField(max_digits=10, decimal_places=2)
 
   def __str__(self):
         return self.event_name 
 
   def get_display_price(self):
-    return "{0:.2f}".format(self.price / 100)
+    return "{0:.2f}".format(self.price / 10)
 
 
 class UserProfile(models.Model):

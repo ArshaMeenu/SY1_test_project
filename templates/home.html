@@ -2,48 +2,44 @@
 	{% load static %}
 
 	{% block content %}
-  <!--navbar section start -->
+	<!--navbar section start -->
 	<nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
-	  <div class="container-fluid p-0">
-	      <!-- logo -->
-	      <a class="navbar-brand" href="#">
-	        <p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
-	      </a>
-	      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-	      <span class="fa fa-bars"></span>
-	      </button>
-	      <div class="collapse navbar-collapse" id="navbarNav" >
-	      <ul class="navbar-nav mx-auto " >
-	        <li class="nav-item ">
-	          <a class="nav-link" href="{% url 'home' %}" >Home
-	            <span>/</span>
-	          </a>          
-	        </li>
-	         <li class="nav-item" >
-	          <a class="nav-link" href="#about">About Us
-	            <span>/</span>
-	          </a>
-	        </li>        
-	        <li class="nav-item">
-	          <a class="nav-link" href="#event">Events<span>/</span></a>
-	        </li>             
-	        <li class="nav-item">
-	          <a class="nav-link" href="#contact">Contact<span>/</span></a>
-	        </li>
-          {% comment %} <li class="nav-item">
-	          <a class="nav-link" href="#payment">Payment<span>/</span></a>
-	        </li> {% endcomment %}
-	        <li class="nav-item">
-	          <a class="nav-link" href="{% url 'login' %}">Login</a>
-	        </li>
-	        
-	      </ul>
-	      </div>
-	  </div>
+		<div class="container-fluid p-0">
+			<!-- logo -->
+			<a class="navbar-brand" href="#">
+				<p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="fa fa-bars"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav" >
+				<ul class="navbar-nav mx-auto " >
+					<li class="nav-item ">
+						<a class="nav-link" href="{% url 'home' %}" >Home
+							<span>/</span>
+						</a>          
+					</li>
+					<li class="nav-item" >
+						<a class="nav-link" href="#about">About Us
+							<span>/</span>
+						</a>
+					</li>        
+					<li class="nav-item">
+						<a class="nav-link" href="#event">Events<span>/</span></a>
+					</li>             
+					<li class="nav-item">
+						<a class="nav-link" href="#contact">Contact<span>/</span></a>
+					</li>				
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'login' %}">Login</a>
+					</li>					
+				</ul>
+			</div>
+		</div>
 	</nav>
-  <!--navbar section end -->
+	<!--navbar section end -->
 
-  <!--banner section start -->
+	<!--banner section start -->
 
 	<section class="banner bg-subscribe overlay-light">
 		<div class="container">
@@ -54,17 +50,15 @@
 						<h1>Event Expo </h1>
 						<h2>2021 - 2022</h2>
 						<h6></h6>
-						<!-- Action Button -->
-					
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-		
- <!--banner section end -->
+	
+	<!--banner section end -->
 
-  <!--about section start -->
+	<!--about section start -->
 
 	<section class="section about" id="about">
 		<div class="container">
@@ -96,85 +90,71 @@
 		</div>
 	</section>
 
-  <!--about section end -->
+	<!--about section end -->
 
-
-
-  <!--events section start -->
-
-
-
-
-
+	<!--events section start -->
 	<section class="cta-subscribe  overlay-light" id ="event">
 		<div class="container">
 			<div class="row">
-	    <div class="col-12">					
+				<div class="col-12">					
 					<div class="section-title white">
 						<h3><span class="alternate">Events</span></h3>
 					</div>
-				</div>
-	    
-            
-        <table class="table table-dark table-striped">
-          <thead>
-            <tr>
-              <th>SI.No</th>
-              <th>Name</th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>Amount</th>
-            </tr>
-          </thead>
-          <tbody>  
-          
-          {% for i in data %}
-            <tr>
-            
-              <td>{{forloop.counter}}</td>
-              <td>{{i.event_name}}</td>
-              <td>{{i.start_date}}</td>
-              <td>{{i.end_date}}</td>
-              <td>{{i.price}}</td> 
-            </tr>
-          {% endfor %}
-          
-<div class="pagination">
-    <span class="step-links">
-        {% if data.has_previous %}
-            <a href="?{{page_request_variable}}=1">&laquo; first</a> &nbsp;
-            <a href="?{{page_request_variable}}={{ data.previous_page_number }}">previous</a>&nbsp;
-        {% endif %} &nbsp;
+				</div>			
+				<table class="table table-dark table-striped">
+					<thead>
+						<tr>
+							<th>SI.No</th>
+							<th>Name</th>
+							<th>Start Date</th>
+							<th>End Date</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>  						
+						{% for i in data %}
+						<tr>							
+							<td>{{forloop.counter}}</td>
+							<td>{{i.event_name}}</td>
+							<td>{{i.start_date}}</td>
+							<td>{{i.end_date}}</td>
+							<td>{{i.price}}</td> 
+						</tr>
+						{% endfor %}
 
-        <span class="current">
-            Page {{ data.number }} of {{ data.paginator.num_pages }}.&nbsp;
-        </span>
+					<!-- pagination -->		
+						<div class="pagination">
+							<span class="step-links">
+								{% if data.has_previous %}
+								<a href="?page=1">&laquo; first</a> &nbsp;
+								<a href="?page={{ data.previous_page_number }}">previous</a>&nbsp;
+								{% endif %} &nbsp;
+								<span class="current">
+									Page {{ data.number }} of {{ data.paginator.num_pages }}.&nbsp;
+								</span>
+								{% if data.has_next %}
+								<a href="?page={{ data.next_page_number }}">next</a>&nbsp;
+								<a href="?page={{ data.paginator.num_pages }}">last &raquo;</a>&nbsp;
+								{% endif %}
+							</span>
+						</div>
+            <!-- end pagination -->
+		
+					</tbody>					
+				</table> 				
+			</div>			
+		</div>
+		
 
-        {% if data.has_next %}
-            <a href="?{{page_request_variablepage}}={{ data.next_page_number }}">next</a>&nbsp;
-            <a href="?{{page_request_variable}}={{ data.paginator.num_pages }}">last &raquo;</a>&nbsp;
-        {% endif %}
-    </span>
-</div>
-          </tbody>
-          
-        </table> 
+		
+		
+		<!-- END Pagination -->
 
-        
-	 </div>			
-	</div>
-  
+	</section> 
 
-  
-  <!-- Pagination -->
-  
-  <!-- END Pagination -->
+	<!--event section end -->
 
-</section> 
-
-<!--event section end -->
-
-<!--sponsors section start -->
+	<!--sponsors section start -->
 
 	<section class="sponsors section bg-sponsors overlay-white">
 		<div class="container">
@@ -262,43 +242,10 @@
 			</div>
 		</div>
 	</section>
-<!--sponsors section end -->
+	<!--sponsors section end -->
 
-<!--payment section start -->
-
-{% comment %} <section>
-      <div class="product">
-        <img
-          src="https://i.imgur.com/EHyR2nP.png"
-          alt="The cover of Stubborn Attachments"
-        />
-        <div class="description">
-          <h3>Stubborn Attachments</h3>
-          <h5>$20.00</h5>
-        </div>
-      </div>
-      <form action="/create-checkout-session" method="POST">
-        <button type="submit" id="checkout-button">Checkout</button>
-      </form>
-    </section> {% endcomment %}
-{% comment %} 
-	 <section class="cta-ticket bg-ticket overlay-dark" id ="payment">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8">					
-					<div class="content-block">
-						<h2>Payment <span class="alternate">Now!</span></h2>
-						<p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmtempor incidi</p>
-						<a href="" class="btn btn-main-md">Buy Payment</a>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="image-block"><img src="{% static 'images/speakers/speaker-ticket.png' %}" alt="" class="img-fluid"></div>
-	</section>  {% endcomment %}
-<!--payment section end -->
-
-<!--contact section start -->
+	
+	<!--contact section start -->
 	<section class="section contact-form" id = "contact">
 		<div class="container">
 			<div class="row">
@@ -328,12 +275,11 @@
 			</form>
 		</div>
 	</section>
-  <!--contact section end -->
+	<!--contact section end -->
+
+{% endblock %}
 
 
-	{% endblock %}
 
 
-
-
-		
+	

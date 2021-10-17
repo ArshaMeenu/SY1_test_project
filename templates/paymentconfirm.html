@@ -6,75 +6,53 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
     <script src="https://js.stripe.com/v3/"></script>
 {% endblock %}
+
 {% block content %}
+
 <!--navbar section start -->
 <nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
   <div class="container-fluid p-0">      
-      <a class="navbar-brand" href="#">
-        <p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand" href="#">
+      <p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="fa fa-bars"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
       <ul class="navbar-nav">      
         <li class=" active" >
           <a class="nav-link " href="{% url 'home' %}">Home</a>         
         </li>         
-      </ul>
-              
-      </ul>
-      </div>
+      </ul>      
+    </ul>
   </div>
+</div>
 </nav> 
 <!--navbar section end -->    
 
+<!--payment proceed section end -->    
 
-	<section class="banner  overlay-light text-center text-dark">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-            <div class="product">       
-              <div class="description">
-                <h3 >{{request.session.event_name}}</h3><br>
-                <h5 >{{request.session.status}}</h5><br>
-              </div>
-            </div>
-      
+<section class="banner  overlay-dark text-center text-dark ">
+  <div class="container">
+   <div class="row">
+    <div class="col-lg-12 border border-primary rounded p-4">
+      <div class="product">       
+        <div class="description">
+          <h3 class ="text-white">Event : {{request.session.event_name}}</h3><br>
+          <h5 class ="text-white">Payment Status : Not Paid</h5><br>
+        </div>
+        <div>
+         <p class ="text-warning">Only by paying ₹.10000,can add the created event into the Event_z site.Are you ready to pay?</p>          
+        </div>
+      </div>      <br>
       <form action="{% url 'create-checkout-session' id %}" method="POST">
-      {% csrf_token %}
-        <button type="submit" id="checkout-button" class="btn btn-info btn-md text-light ">Checkout</button>&nbsp;&nbsp;
+        {% csrf_token %}
+        <button type="submit" id="checkout-button" class="btn btn-info btn-md text-light ">Proceed</button>&nbsp;&nbsp;
         <button type="button" name="cancel" class="btn btn-danger btn-sm " ><a href= "{% url 'home' %}" class="text-white" >Cancel</a></button>
-
       </form>
-      </div>
-      </div>
-      </div>
-    </section>
-{% comment %}     
-	<section class="banner  overlay-light text-center text-dark">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-            <div class="product">       
-              <div class="description">
-              
-               
-                 <h3 >Name : {{name}}</h3><br>
-                 <h5 >status : Not Paid</h5><br>  
-              </div>
-            </div><br>
-      <div class="">
-                  <p>Only by paying ₹.10000,can add the created event into the Event_z site.Are you ready to pay?</p>
-                </div> <br>
-      <form action="{% url 'create-checkout-session' id %}" method="POST">
-      {% csrf_token %}
-        <button type="submit" id="checkout-button" class="btn btn-info btn-md text-light ">Proceed </button>&nbsp;&nbsp;
-        <button type="button" name="cancel" class="btn btn-danger btn-sm " ><a href= "{% url 'home' %}" class="text-white" >Cancel</a></button>
+    </div>
+  </div>
+</div>
+</section>
 
-      </form>
-      </div>
-      </div>
-      </div>
-    </section> {% endcomment %}
- {% endblock %}
+{% endblock %}
