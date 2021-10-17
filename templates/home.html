@@ -102,7 +102,11 @@
 
   <!--events section start -->
 
-	<section class="cta-subscribe bg-banner-one overlay-dark" id ="event">
+
+
+
+
+	<section class="cta-subscribe bg-banner-one overlay-light" id ="event">
 		<div class="container">
 			<div class="row">
 	    <div class="col-12">					
@@ -110,24 +114,35 @@
 						<h3><span class="alternate">Events</span></h3>
 					</div>
 				</div>
-	    {% for i in data %}
-	      <div class="col-sm-4">
-	        <div class="card text-center" style="width: 18rem;">
-	        <h5 class="card-header">{{i.event_name}}</h5>
-	          <div class="card-body">
-	            <p class="card-text"><b>Desc : </b>{{i.description}}</p>
-	            <br>
-	            <p ><b>Date : </b>{{i.created_at}}</p>
-	            <br>
-	            <p><b>Amount: </b>{{i.price}}</p>
-	          </div>
-	        </div>
-	        <p> <br></p>
-	      </div> 
-	   {% endfor %} 
+	    
+      
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>SI.No</th>
+        <th>Name</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>  
+     
+    {% for i in data %}
+      <tr>
+      
+        <td>{{forloop.counter}}</td>
+        <td>{{i.event_name}}</td>
+        <td>{{i.start_date}}</td>
+        <td>{{i.end_date}}</td>
+        <td>{{i.price}}</td> 
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table> 
 	 </div>			
 	</div>
-</section>
+</section> 
 <!--event section end -->
 
 <!--sponsors section start -->

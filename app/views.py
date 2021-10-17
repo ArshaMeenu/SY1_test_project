@@ -23,16 +23,26 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 
 class Home(APIView):
   def get(self,request): 
-    emp = Events.objects.filter(is_paid=1)
+    name = []
+    emp = Events.objects.filter(is_paid=1).all().values()
     serializer = EventSerializer(emp, many=True) 
-    context = serializer.data    
-    return render(request, "home.html",{'data':context})
+    event_data = serializer.data   
+    print("end") 
+    print(event_data)
+    # for i in range(len(event_data)):
+    #   event_name = event_data[i].get('event_name')
+    #   print(123)
+    #   print(event_name)
+    #   name.append(event_name)    
+    return render(request, "home.html",{'data':event_data})
 
   def post(self,request):
-    emp = Events.objects.filter(is_paid=1)
-    serializer = EventSerializer(emp, many=True) 
-    context = serializer.data
-    return render(request, "home.html",{'data':context})
+    emp = Events.objects.filter(is_paid=1).all()
+    print(emp)
+    
+    # serializer = EventSerializer(emp, many=True) 
+    # context = serializer.data
+    return render(request, "home.html",{'data':emp})
 
 
 import json
