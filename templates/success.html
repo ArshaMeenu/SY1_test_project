@@ -26,8 +26,7 @@
           </li>        
           <li class="">
             <a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">logout</a>
-          </li>  
-                 
+          </li>                   
       </ul>
   </div>
 </div>
@@ -38,11 +37,11 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="block">
-          <div class="">
+          <div class="border">
            <form action="{% url 'home' %}" method="post">
              {% csrf_token %} 
              <button type="submit" name = "confirm" class="btn btn-success btn-md " >Confirm</button> &nbsp;&nbsp;           
-             <button type="button" name="cancel" class="btn btn-danger btn-sm "><a href= "{% url 'userprofile' %}" class="text-white" >Cancel</a></button>
+             <button type="button" name="cancel" class="btn btn-danger btn-sm " onclick="showcancel()"><a href= "" class="text-white" >Cancel</a></button>
            </form>
          </div>
        </div>
@@ -50,4 +49,11 @@
    </div>
  </div>   
 </section>
+
+ <script>
+  function showcancel() {
+    var myText = "Forgot to add something to your cart? Shop around then come back to pay!";
+    alert (myText);
+  }
+  </script>
 {% endblock %}

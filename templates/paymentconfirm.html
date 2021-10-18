@@ -44,7 +44,7 @@
         <div>
          <p class ="text-warning h3">Only by paying ₹.100,can add the created event into the Event_z site.Are you ready to pay?</p>          
         </div>
-      </div>      <br>
+      </div><br>
       <form action="{% url 'create-checkout-session' id %}" method="POST">
         {% csrf_token %}
         <button type="submit" id="checkout-button" class="btn btn-info btn-md text-light ">Proceed</button>&nbsp;&nbsp;

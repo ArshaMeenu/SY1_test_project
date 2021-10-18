@@ -114,7 +114,7 @@
 					<tbody>  						
 						{% for i in data %}
 						<tr>							
-							<td>{{forloop.counter}}</td>
+							<td>{{forloop.counter0|add:data.start_index}}</td>
 							<td>{{i.event_name}}</td>
 							<td>{{i.start_date}}</td>
 							<td>{{i.end_date}}</td>
@@ -138,6 +138,7 @@
 								{% endif %}
 							</span>
 						</div>
+            
             <!-- end pagination -->
 		
 					</tbody>					
