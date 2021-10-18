@@ -5,6 +5,11 @@
     <title> Event_z </title>
     <script src="https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch"></script>
     <script src="https://js.stripe.com/v3/"></script>
+    <style>
+      .border-col {
+         border:3px dashed ;
+      }
+    </style>
 {% endblock %}
 
 {% block content %}
@@ -35,24 +40,23 @@
 <section class="banner  overlay-dark text-center text-dark ">
   <div class="container">
    <div class="row">
-    <div class="col-lg-12 border border-primary rounded p-4">
+    <div class="col-lg-12  border-col border-primary rounded p-4">
       <div class="product">       
         <div class="description">
-          <h3 class ="text-white">Event : {{request.session.event_name}}</h3><br>
-          <h5 class ="text-white">Payment Status : Not Paid</h5><br>
+          <h3 class ="text-white">Event : &nbsp; {{request.session.event_name}}</h3><br>
+          <h5 class ="text-white">Payment Status :&nbsp; Not Paid</h5><br>
         </div>
         <div>
-         <p class ="text-warning h3">Only by paying ₹.100,can add the created event into the Event_z site.Are you ready to pay?</p>          
+         <p class ="text-warning h3">Only by paying ₹.100,can show the created event into the Event_z website.Are you ready to pay?</p>          
         </div>
       </div><br>
       <form action="{% url 'create-checkout-session' id %}" method="POST">
         {% csrf_token %}
-        <button type="submit" id="checkout-button" class="btn btn-info btn-md text-light ">Proceed</button>&nbsp;&nbsp;
+        <button type="submit" id="checkout-button" class="btn btn-success btn-md text-light " id="submitBtn">Proceed</button>&nbsp;&nbsp;
         <button type="button" name="cancel" class="btn btn-danger btn-sm " ><a href= "{% url 'home' %}" class="text-white" >Cancel</a></button>
       </form>
     </div>
   </div>
 </div>
 </section>
-
 {% endblock %}

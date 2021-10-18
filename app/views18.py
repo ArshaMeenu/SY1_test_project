@@ -32,8 +32,7 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 # home page section
 class Home(ListView):
   permission_classes = (AllowAny,)
-  def get(self,request):    
-    print("satrt") 
+  def get(self,request):     
     event_list = Events.objects.filter(is_paid=1).all().values()
     paginator = Paginator(event_list, 3) # Show 3 events per page.
     page_number = request.GET.get('page')
@@ -143,14 +142,18 @@ class CreateCheckoutSessionView(APIView):
         )     
     return redirect(checkout_session.url,code=303)
 
-def paymentSuccess(request):  
-  msg = "Payment completed successfully." 
-  return render(request,'success.html',{'message':msg})
-
+def paymentSuccess(request):
+  # return redirect("/payment-success")   
+  
+  return render(request,'success.html')
 
 def paymentCancel(request):
-  context = { 'payment-status':'Payment failed.Please try again later'}
-  return render(request,'cancel.html',context)
+  context = { 'payment-status':'cancel'}
+  return redirect("/payment-cancel")     
+
+  # return render(request,'cancel.html',context)
+
+
 
 
 
