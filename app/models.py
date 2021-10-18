@@ -12,14 +12,14 @@ class Events(models.Model):
   start_date = models.DateField(validators=[MinValueValidator(datetime.date.today)],blank=True,null=True)
   end_date = models.DateField(blank=True,null=True)
   is_paid = models.BooleanField(default=False,blank=True,null=True)  
-  country =CountryField(multiple=True)
+  # country =CountryField(multiple=True,blank=True)
   price= models.DecimalField(max_digits=10, decimal_places=2)
 
   def __str__(self):
         return self.event_name 
 
   def get_display_price(self):
-    return "{0:.2f}".format(self.price / 10)
+    return "{0:.2f}".format(self.price / 100)
 
 
 class UserProfile(models.Model):

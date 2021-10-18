@@ -5,17 +5,12 @@
 {% block additional_styles %}
     <title> Event_z </title>
     <style>
-      .card {
+      .container {
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      .currencyinput {
-        border: 1px inset white;
-      }
-      .currencyinput input {
-        border: 0;
-      }
+        mx-auto;
+      }     
     </style>
 {% endblock %}
 {% block content %}
@@ -50,12 +45,12 @@
   <!--card section start-->
   <section class="banner section  overlay-dark" >
     <div class="container ">
-      <div class="row">
-        <div class="col-lg-12">
+      <div class="row  ">
+        <div class="col-lg-12  ">
           <div class="block ">
             <div class="">     
               <div class="card text-center " style="width: 18rem;border:2px dotted red;border-radius:10px">
-                <img class="card-img-top img-thumbnail" src="{% static 'images/speakers/profile.png' %}" alt="Card image cap" >
+                <img class="card-img-top img-thumbnail" src="{% static 'images/speakers/person.png' %}" alt="Card image cap" >
                 <div class="card-body text-center">
                   <h5 class="card-title">{{request.session.username}}</h5>
                   <p class="card-text">Users can also update their contact details under My Tasks/My Details.</p>
@@ -77,13 +72,13 @@
           <br><br>
           <form action="{% url 'userprofile' %}" name= "myform" method="POST">
            {% csrf_token %}
-           <label for="event_name" class = "text-secondary ">Name: &nbsp; </label>                
-           <input id="event_name" type="text" name="event_name" class=" form-control" placeholder =" Enter event name here ..." required="required" id="evnt_name"> <br><br>       
+           <label for="event_name"  class = "text-secondary ">Name: &nbsp; </label>                
+           <input id="event_name" autocomplete="off" type="text" name="event_name" class=" form-control" placeholder =" Enter event name here ..." required="required" id="evnt_name"> <br><br>       
            <label for="desc" class = "text-secondary ">Description:&nbsp; </label>
            <textarea name="description" rows="3" cols="40" class="form-control"  placeholder =" About the event ..."  required="required"></textarea>                     
            <br><br>                 
-           <label for="price" class = "text-secondary ">Event Participant Rate :&nbsp; </label><br>
-           <input type="number" placeholder ="₹" name="price" class="form-control" step="any" required/>                
+           <label for="price"  class = "text-secondary ">Event Participant Rate :&nbsp; </label><br>
+           <input type="number" autocomplete="off" placeholder ="₹" name="price" class="form-control" step="any" required/>                
            <br><br> 
            <div class ="container">  
             <div class="row">
