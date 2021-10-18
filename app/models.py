@@ -1,3 +1,4 @@
+from django.core import validators
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
@@ -9,7 +10,7 @@ class Events(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
   event_name = models.CharField(max_length= 100, blank=True,null=True)
   description  = models.TextField(max_length= 255,blank=True,null=True)
-  start_date = models.DateField(validators=[MinValueValidator(datetime.date.today)],blank=True,null=True)
+  start_date = models.DateField(blank=True,null=True)
   end_date = models.DateField(blank=True,null=True)
   is_paid = models.BooleanField(default=False,blank=True,null=True)  
   # country =CountryField(multiple=True,blank=True)

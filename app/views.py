@@ -56,8 +56,6 @@ class Login(APIView):
     return render(request,"login.html",{'user':user})
 
   def post(self,request):
-        data = {}
-        reqBody = request.body        
         username = request.POST['username']
         password = request.POST['password']
         try:
@@ -72,9 +70,10 @@ class Login(APIView):
         if Account:           
             if Account.is_active:                
                 login(request, Account)   
-                userid = request.user.id                             
+                userid = request.user.id  
+                user = UserProfile.objects.get(user_id = userid)
                 request.session['username'] = username
-                request.session['fullname'] = password                                     
+                # request.session['userid'] = user
                 response = redirect('/userprofile')
                 return response
             else:
@@ -86,10 +85,11 @@ class Login(APIView):
 
 # user profile section
 class userProfile(APIView):
-  def get(self,request, *args, **kwargs):    
+  permission_classes = (AllowAny,)
+  def get(self,request, *args, **kwargs):   
     return render(request,'userprofile.html')
 
-  def post(self, request, *args, **kwargs):        
+  def post(self, request, *args, **kwargs):                
         serializer_obj = EventSerializer(data=request.data)        
         if serializer_obj.is_valid():            
             serializer_obj.save()            
