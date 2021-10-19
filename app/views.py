@@ -33,7 +33,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 class Home(ListView):
   permission_classes = (AllowAny,)
   def get(self,request):    
-    print("satrt") 
     event_list = Events.objects.filter(is_paid=1).all().values()
     paginator = Paginator(event_list, 3) # Show 3 events per page.
     page_number = request.GET.get('page')
@@ -42,7 +41,7 @@ class Home(ListView):
 
   def post(self,request):
     event_list = Events.objects.filter(is_paid=1).all().values()
-    paginator = Paginator(event_list, 3) # Show 3 events per page.
+    paginator = Paginator(event_list, 4) # Show 3 events per page.
     page_number = request.GET.get('page')
     event_obj = paginator.get_page(page_number)
     return render(request, "home.html",{'data':event_obj})
@@ -144,7 +143,7 @@ class CreateCheckoutSessionView(APIView):
     return redirect(checkout_session.url,code=303)
 
 def paymentSuccess(request):  
-  msg = "Payment completed successfully." 
+  msg = "Payment completed successfully and this event is added into the Event_z Website." 
   return render(request,'success.html',{'message':msg})
 
 

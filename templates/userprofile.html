@@ -24,14 +24,14 @@
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
           <ul class="navbar-nav"> 
-           <input type="submit" class="btn btn-warning btn-sm mr-5"  data-toggle ="modal" data-target = "#modal_add" value ="add event +" >    
+           <input type="submit" class="btn btn-warning btn-sm mr-5"  data-toggle ="modal" data-target = "#modal_add" value ="create event +" >    
            <li class=" active" >
             <a class="nav-link " href="{% url 'home' %}">Home</a>                   
           </li>                  
         </ul>
         <ul class="navbar-nav  ">
           <li class="">
-            <a class="nav-link text-primary" href="#">Welcome {{request.session.username}} !!!</a>
+            <a class="nav-link text-primary" href="#">Welcome {{request.session.userid}} !!!</a>
           </li>        
           <li class="">
             <a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">logout</a>
@@ -67,7 +67,7 @@
     <div class="modal-dialog">
       <div class="modal-content">      
         <div class="modal-body text-center" style ="background-color :#032161">
-          <p class = "text-warning h3 ">Create Events</p>
+          <p class = "text-warning h3 ">Create Event</p>
           <br><br>
           <form action="{% url 'userprofile' %}" name= "myform" method="POST">
            {% csrf_token %}
@@ -77,18 +77,18 @@
            <textarea name="description" rows="3" cols="40" class="form-control"  placeholder =" About the event ..."  required="required"></textarea>                     
            <br><br>                 
            <label for="price"  class = "text-secondary ">Event Participant Rate :&nbsp; </label><br>
-           <input type="number" autocomplete="off" placeholder ="₹" name="price" class="form-control" step="any" required/>                
+           <input type="number" autocomplete="off" placeholder ="₹"  min="10.00" data-bs-toggle="tooltip" data-bs-placement="top" title="ticket amount for the event"  max="100000.00" name="price" class="form-control" id="fname" step="any" required/>                
            <br><br> 
            <div class ="container">  
             <div class="row">
               <div class="col-6">
                 <label>Start Date</label>  
-                <input class="input-text date-class" name="start_date" type="date" required="required">
+                <input class="input-text date-class " data-bs-toggle="tooltip" data-bs-placement="top" title="Event starting date" name="start_date" type="date"  required="required">
                 <br>
               </div>
               <div class="col-6">
                 <label>End Date</label>
-                <input class="input-text date-class" name="end_date" type="date"  required="required">
+                <input class="input-text date-class"  name="end_date" type="date" data-bs-toggle="tooltip" data-bs-placement="top" title="Event ending date"  required="required">
               </div>
             </div>     
           </div>          
@@ -101,5 +101,6 @@
   </div>
 </div>
 <!--modal for add event section end-->
+
 
 {% endblock %}
