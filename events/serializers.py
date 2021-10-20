@@ -13,6 +13,7 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source = "user.username")
     
     class Meta:
         model = UserProfile

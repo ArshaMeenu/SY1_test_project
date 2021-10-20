@@ -42,7 +42,7 @@
   </nav> 
   <!--navbar section end -->
   <!--card section start-->
-  <section class="banner section  overlay-dark" >
+  <section class="banner section bg-subscribe overlay-dark" >
     <div class="container ">
       <div class="row  ">
         <div class="col-lg-12  ">
@@ -51,7 +51,7 @@
               <div class="card text-center " style="width: 18rem;border:2px dotted red;border-radius:10px">
                 <img class="card-img-top img-thumbnail" src="{% static 'images/speakers/person.png' %}" alt="Card image cap" >
                 <div class="card-body text-center">                
-                  <h5 class="card-title">{{request.session.userid}}</h5>
+                  <h5 class="card-title text-uppercase">{{request.session.fullname}}</h5>
                   <p class="card-text">Users can also update their contact details under My Tasks/My Details.</p>
                 </div>
               </div>         
@@ -63,10 +63,11 @@
   </section>
   <!--card section end-->
   <!--modal for add event section start-->
+  
   <div class="modal" tabindex="-1" id="modal_add">
     <div class="modal-dialog">
       <div class="modal-content">      
-        <div class="modal-body text-center" style ="background-color :#032161">
+        <div class="modal-body text-center border rounded" style ="background-color :#021b4f">
           <p class = "text-warning h3 ">Create Event</p>
           <br><br>
           <form action="{% url 'userprofile' %}" name= "myform" method="POST">

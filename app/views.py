@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 import rest_framework
+from rest_framework import permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -57,30 +58,7 @@ class Login(APIView):
   def post(self,request):
         username = request.POST['username']
         password = request.POST['password']
-        msg ="Invalid username or password."
-        # if request.user.is_authenticated:
-        #   print("not auth")
-        #   return redirect("/")
-        # else:
-        #   if request.method == "POST":
-        #     username = request.POST['username']
-        #     password = request.POST['password']
-        #     msg = "Invalid Username or Password."
-
-        #     user = authenticate(username=username, password=password)
-        #     if user is not None:
-        #       user_data = UserProfile.objects.get(user=user)
-        #       print(user_data)
-        #       if user_data.type == "user":
-        #         login(request, user)
-        #         print("middle")
-
-        #         print(request.user)
-        #         return redirect("/user-profile")
-        #       else:
-        #         return render(request, "login.html", {"message":msg})
-        #     print("end")
-        #     return render(request, "login.html",{'message':msg})
+        msg ="Invalid username or password."        
 
         try:          
             Account = User.objects.get(username=username)
@@ -94,17 +72,14 @@ class Login(APIView):
         if Account:           
             if Account.is_active:                
                 login(request, Account)   
-                userid = request.user.id  
-                print(request.user)
-                print(userid)
-                user = UserProfile.objects.filter(user_id = userid).all()
-                print(user)
+                userid = request.user.id                  
+                user = UserProfile.objects.filter(user_id = userid).all()                
                 serialized = UserProfileSerializer(user,many=True)
                 data=serialized.data
-                username = data[0].get('full_name')
-                userid= data[0].get('user')
+                fullname = data[0].get('full_name')
+                username= data[0].get('user')
+                request.session['fullname'] = fullname
                 request.session['username'] = username
-                request.session['userid'] = userid
                 response = redirect('/userprofile')
                 return response
             else:
@@ -115,7 +90,9 @@ class Login(APIView):
 # user profile section
 class userProfile(APIView):
   permission_classes = (AllowAny,)
-  def get(self,request, *args, **kwargs):   
+  def get(self,request, *args, **kwargs): 
+    print('userProfile')  
+    print(request.session)
     return render(request,'userprofile.html')
 
   def post(self, request, *args, **kwargs):                

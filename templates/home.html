@@ -56,8 +56,16 @@
 					</li>		
           {% else %}
           <li class="nav-item">
+						<a class="nav-link text-dark" href="{% url 'userprofile' %}">Profile <span>/</span></a>
+					</li>
+          <li class="">
+            <a class="nav-link text-primary" href="#">Hi, {{request.session.username}} &nbsp; <span>/</span></a>
+          </li>
+          	
+          <li class="nav-item">
 						<a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">Logout</a>
 					</li>
+
           {% endif %}	          					
 				</ul>
         <ul class="navbar-nav mr-1 ">
@@ -139,11 +147,12 @@
 						<div class="card shadow-sm mb-4">
 							<img src="https://mdbootstrap.com/img/new/standard/city/042.jpg" class="card-img-top" alt="..." />
 							<div class="card-body d-flex flex-column">
-								<h5 class="card-title text-uppercase text-truncate">{{i.event_name}}</h5>
+								<h5 class="card-header text-uppercase text-truncate">{{i.event_name}}</h5>
 								<p class="card-text mb-4 p-2 text-truncate ">{{i.description}}</p>
+								<p class="card-text mb-4 p-2 text-truncate ">Ticket (₹) : {{i.price}}</span>
 							</div>
-							<div class="card-footer ">
-								<small class="text-muted ">{{i.start_date}} - {{i.end_date}}</small>
+							<div class="card-footer bg-warning ">
+								<small class="text-dark  ">{{i.start_date}} - {{i.end_date}}</small>
 							</div>
 						</div>
 					</div>
