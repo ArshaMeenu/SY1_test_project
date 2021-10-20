@@ -2,58 +2,49 @@
 {% load static %}
 
 {% block additional_styles %}
-  <title> Event_z </title>
-  <style>
-      .border-col {
-         border:3px dashed ;
-      }
-    </style>
+   <title> Event_z </title>
 {% endblock %}
 {% block content %}
 <!--navbar section start -->
 <nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
-  <div class="container-fluid p-0">      
-    <a class="navbar-brand" href="#">
-      <p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="fa fa-bars"></span>
-    </button>
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
-      <ul class="navbar-nav">      
-        <li class=" active" >
-          <a class="nav-link " href="{% url 'home' %}">Home</a>         
-        </li>         
-      </ul>     
-      <ul class="navbar-nav  ">
-          <li class="">
-            <a class="nav-link text-primary" href="#">Welcome {{request.session.username}} !!!</a>
-          </li>        
-          <li class="">
-            <a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">logout</a>
-          </li>                   
-      </ul>
-  </div>
-</div>
+	<div class="container-fluid p-0">      
+		<a class="navbar-brand" href="{% url 'home' %}">
+			<p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="fa fa-bars"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbarNav" >		
+			<ul class="navbar-nav  ">
+				<li class="nav-item">
+					<img src="{% static 'images/speakers/lotus.png' %}" style="width: 90px;" alt="logo">
+				</li>     		
+			</ul>
+		</div>
+	</div>
 </nav> 
 <!--navbar section end -->
 <section class="banner section bg-about overlay-light">
-  <div class="container text-center">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="block">
-          <div class="border-col border-primary rounded p-4">
-           <form action="{% url 'home' %}" method="post">
-             {% csrf_token %} 
-                    <p class ="text-success">{{message}}</p>
-             {% comment %} <button type="submit" name = "confirm" class="btn btn-success btn-md " >Confirm</button> &nbsp;&nbsp;           
-             <button type="button" name="cancel" class="btn btn-danger btn-sm " ><a href= "{% url 'login' %}" class="text-white" >Cancel</a></button> {% endcomment %}
-           </form>
-         </div>
-       </div>
-     </div>
-   </div>
- </div>   
-</section>
+	<div class="container ">
+		<div class="row ">
+			<div class="col-lg-12 ">
+				<div class="border rounded pb-4">
+					<div class="card mt-2 mb-5 pb-5 green text-center">
+						<div class="card-body">
+							<h4><i class="fa fa-check border rounded-circle bg-success" aria-hidden="true" style ="color:white;"></i></h4>
+							<h5 class="card-title text-success">{{message}}</h5><br>
+							<p class="card-text text-dark ">Event : {{request.session.event_name}}</p><br>
+							<p class="card-text text-dark"><b>Amount paid</b> : ₹ 100</p><br>
+							<p> The {{request.session.event_name}} has been added into the Event_z website.</p>
+						</div>
+						<div>
+							<button type ="submit" class="bg-primary " ><a href = "{% url 'home'%}" class ="text-white">CLOSE</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>   
+	</section>
 
-{% endblock %}
+	{% endblock %}

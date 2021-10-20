@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block additional_styles %}
-    <title> Event_z </title>
+<title> Event_z </title>
     <style>
       .container {
         display: flex;
@@ -13,124 +13,120 @@
     </style>
 {% endblock %}
 {% block content %}
-    <!--navbar section start -->
-    <nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
-      <div class="container-fluid p-0">      
-        <a class="navbar-brand" href="#">
-          <p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="fa fa-bars"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
-          <ul class="navbar-nav"> 
-           <input type="submit" class="btn btn-warning btn-sm mr-5"  data-toggle ="modal" data-target = "#modal_add" value ="create event +" >    
-           <li class=" active" >
-            <a class="nav-link " href="{% url 'home' %}">Home</a>                   
-          </li>                  
-        </ul>
-        <ul class="navbar-nav">
-          <li class="">
-            <a class="nav-link text-primary" href="#">Welcome {{request.session.username}} !!!</a>
-          </li>        
-          <li class="">
-            <a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">Logout</a>
-          </li>  
-        </ul>
-      </div>
-    </div>
-  </nav> 
-  <!--navbar section end -->
-  <!--card section start-->
-  
- 
-   
+<!--navbar section start -->
+<nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
+	<div class="container-fluid p-0">      
+		<a class="navbar-brand" href="#">
+			<p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
+		</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="fa fa-bars"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
+			<ul class="navbar-nav"> 
+				<input type="submit" class="btn btn-warning btn-sm mr-5"  data-toggle ="modal" data-target = "#modal_add" value ="create event +" >    
+				<li class=" active" >
+					<a class="nav-link " href="{% url 'home' %}">Home</a>                   
+				</li>                  
+			</ul>
+			<ul class="navbar-nav">
+				<li class="">
+					<a class="nav-link text-primary" href="#">Welcome {{request.session.username}} !!!</a>
+				</li>        
+				<li class="">
+					<a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">Logout</a>
+				</li>  
+			</ul>
+		</div>
+	</div>
+</nav> 
+<!--navbar section end -->
+<!--card section start-->
 
 
-  <section class="banner section bg-subscribe overlay-dark" >
-  <div class ="container">
-  <div class = "row ">
-    <div class ="col-12 ">
-    {% if messages %}
-   <section class="" > 
+<section class="banner section bg-subscribe overlay-dark" >
+	<!--message alert-->
+	<div class ="container">
+		<div class = "row ">
+			<div class ="col-12 ">
+				{% if messages %}
+				<section class="" > 
+					{% for message in messages %}
+					<div class="container ">
+						<div class="alert {{ message.tags }} alert-dismissible" style ="color:#f26100;font-size :20px" >
+							<button type="button" class="close btn-lg border rounded " style ="display: inline-block;background-color:white;margin:2px;" data-dismiss="alert" aria-label="Close" >
+								<span aria-hidden="true">&times;</span>
+							</button>
+							{{ message }}
+						</div>
+					</div>
+					{% endfor %}
+				</section> 
+				{% endif %}
+				<br>
+			</div>
+		</div>
+	</div>
+	<!--user details-->
+	<div class="container ">    
+		<div class="row  ">
+			<div class="col-lg-12  ">
+				<div class="block ">          
+					<div class="">     
+						<div class="card text-center " style="width: 18rem;border:2px dotted red;border-radius:10px">
+							<img class="card-img-top img-thumbnail" src="{% static 'images/speakers/person.png' %}" alt="Card image cap" >
+							<div class="card-body text-center">                
+								<h5 class="card-title text-uppercase">{{request.session.fullname}}</h5>
+								<p class="card-text">Users can also update their contact details under My Tasks/My Details.</p>
+							</div>
+						</div>         
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
-{% for message in messages %}
-<div class="container ">
-  <div class="alert {{ message.tags }} alert-dismissible" style ="color:#f26100;font-size :20px" >
-    <button type="button" class="close btn-lg border rounded " style ="display: inline-block;background-color:white;margin:2px;" data-dismiss="alert" aria-label="Close" >
-      <span aria-hidden="true">&times;</span>
-    </button>
-    {{ message }}
-  </div>
-</div>
-{% endfor %}
- </section> 
-{% endif %}
-<br>
-    </div>
-    </div>
-  </div>
-  
-    <div class="container ">    
-      <div class="row  ">
-        <div class="col-lg-12  ">
-          <div class="block ">          
-            <div class="">     
-              <div class="card text-center " style="width: 18rem;border:2px dotted red;border-radius:10px">
-                <img class="card-img-top img-thumbnail" src="{% static 'images/speakers/person.png' %}" alt="Card image cap" >
-                <div class="card-body text-center">                
-                  <h5 class="card-title text-uppercase">{{request.session.fullname}}</h5>
-                  <p class="card-text">Users can also update their contact details under My Tasks/My Details.</p>
-                </div>
-              </div>         
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+<!--card section end-->
+<!--modal for add event section start-->
 
-  <!--card section end-->
-  <!--modal for add event section start-->
-  
-  <div class="modal " tabindex="-1" id="modal_add">
-    <div class="modal-dialog">
-      <div class="modal-content ">      
-        <div class="modal-body text-center border rounded" style ="background-color :#021b4f">
-          <p class = "text-warning h3 ">Create Event</p>
-          <br><br>
-          <form action="{% url 'userprofile' %}" name= "myform" method="POST">
-           {% csrf_token %}
-           <label for="event_name"  class = "text-secondary ">Name: &nbsp; </label>                
-           <input id="event_name" autocomplete="off" type="text" name="event_name" class=" form-control" placeholder =" Enter event name here ..." required="required" id="evnt_name"> <br><br>       
-           <label for="desc" class = "text-secondary ">Description:&nbsp; </label>
-           <textarea name="description" rows="3" cols="40" class="form-control"  placeholder =" About the event ..."  required="required"></textarea>                     
-           <br><br>                 
-           <label for="price"  class = "text-secondary ">Event Participant Rate :&nbsp; </label><br>
-           <input type="number" autocomplete="off" placeholder ="₹"  min="10.00" data-bs-toggle="tooltip" data-bs-placement="top" title="ticket amount for the event"  max="100000.00" name="price" class="form-control" id="fname" step="any" required/>                
-           <br><br> 
-           <div class ="container">  
-            <div class="row">
-              <div class="col-6">
-                <label>Start Date</label>  
-                <input class="input-text date-class " data-bs-toggle="tooltip" data-bs-placement="top" title="Event starting date" name="start_date" type="date"  required="required">
-                <br>
-              </div>
-              <div class="col-6">
-                <label>End Date</label>
-                <input class="input-text date-class"  name="end_date" type="date" data-bs-toggle="tooltip" data-bs-placement="top" title="Event ending date"  required="required">
-              </div>
-            </div>     
-          </div>          
-          <br><br>           
-          <button type="submit"  class="btn btn-success btn-sm "  style ="float:right" ><a  class="text-white">Save</a></button>            
-          <button type="button" name="cancel" class="btn btn-danger btn-sm " style ="float:left"><a href="{% url 'userprofile' %}" class="text-white" >Cancel</a></button>
-        </form>
-      </div>     
-    </div>
-  </div>
+<div class="modal " tabindex="-1" id="modal_add">
+	<div class="modal-dialog">
+		<div class="modal-content ">      
+			<div class="modal-body text-center border rounded" style ="background-color :#021b4f">
+				<p class = "text-warning h3 ">Create Event</p>
+				<br><br>
+				<form action="{% url 'userprofile' %}" name= "myform" method="POST">
+					{% csrf_token %}
+					<label for="event_name"  class = "text-secondary ">Name: &nbsp; </label>                
+					<input id="event_name" autocomplete="off" type="text" name="event_name" class=" form-control" placeholder =" Enter event name here ..." required="required" id="evnt_name"> <br><br>       
+					<label for="desc" class = "text-secondary ">Description:&nbsp; </label>
+					<textarea name="description" rows="3" cols="40" class="form-control"  placeholder =" About the event ..."  required="required"></textarea>                     
+					<br><br>                 
+					<label for="price"  class = "text-secondary ">Ticket Rate :&nbsp; </label><br>
+					<input type="number" autocomplete="off" placeholder ="₹"  min="10.00" data-bs-toggle="tooltip" data-bs-placement="top" title="ticket amount for the event"  max="100000.00" name="price" class="form-control" id="fname" step="any" required/>                
+					<br><br> 
+					<div class ="container">  
+						<div class="row">
+							<div class="col-6">
+								<label>Start Date</label>  
+								<input class="input-text date-class " data-bs-toggle="tooltip" data-bs-placement="top" title="Event starting date" name="start_date" type="date"  required="required">
+								<br>
+							</div>
+							<div class="col-6">
+								<label>End Date</label>
+								<input class="input-text date-class"  name="end_date" type="date" data-bs-toggle="tooltip" data-bs-placement="top" title="Event ending date"  required="required">
+							</div>
+						</div>     
+					</div>          
+					<br><br>           
+					<button type="submit"  class="btn btn-success btn-sm "  style ="float:right" ><a  class="text-white">Save</a></button>            
+					<button type="button" name="cancel" class="btn btn-danger btn-sm " style ="float:left"><a href="{% url 'userprofile' %}" class="text-white" >Cancel</a></button>
+				</form>
+			</div>     
+		</div>
+	</div>
 </div>
 <!--modal for add event section end-->
-
 
 {% endblock %}

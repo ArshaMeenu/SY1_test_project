@@ -62,13 +62,11 @@ class Login(APIView):
 
         try:          
             Account = User.objects.get(username=username)
-            print("start")
-            # print(Account)
         except BaseException as e:
-            return render(request, "login.html", { "msg" : msg})
+            return render(request, "login.html", { "message" : msg})
         token = Token.objects.get_or_create(user=Account)[0].key
         if not check_password(password, Account.password):
-            return render(request, "login.html", { "msg" : msg})
+            return render(request, "login.html", { "message" : msg})
         if Account:           
             if Account.is_active:                
                 login(request, Account)   
@@ -83,7 +81,7 @@ class Login(APIView):
                 response = redirect('/userprofile')
                 return response
             else:
-                return render(request, "login.html", { "msg" : msg})
+                return render(request, "login.html", { "message" : msg})
         else:
             return render(request, "login.html", { "msg" : msg})
 
@@ -97,9 +95,7 @@ class userProfile(APIView):
     if request.method == "POST":
       event_name = request.POST["event_name"]
       desc = request.POST["description"]
-      amount = request.POST["price"]
-      print(amount)      
-      print(desc)         
+      amount = request.POST["price"]              
       if event_name ==" " or amount ==" " or desc==" " :
         messages.warning(request,"There is one or more fields are empty!")
         return redirect("/userprofile")
@@ -158,7 +154,7 @@ class CreateCheckoutSessionView(APIView):
     return redirect(checkout_session.url,code=303)
 
 def paymentSuccess(request):  
-  msg = "Payment completed successfully and this event is added into the Event_z Website." 
+  msg = "Payment Successfully " 
   return render(request,'success.html',{'message':msg})
 
 
