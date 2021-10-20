@@ -114,29 +114,33 @@
     }
     form input[type="submit"]:hover{
       background: #2c52ed;
-    }
-    
+    }    
   </style> 
 {% endblock %}
 
 {% block content %}
   
   <!--navbar section start -->
-  <nav class="navbar main-nav border-less fixed-top navbar-expand-lg ">
+  <nav class="navbar main-nav border-less fixed-top navbar-expand  ">
     <div class="container-fluid p-0">
-      <a class="navbar-brand" href="">
+      <a class="navbar-brand" href="{% url 'home' %}">
         <p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="fa fa-bars"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-end" id="navbarNav" >
-        <ul class="navbar-nav  ">        
+        <ul class="navbar-nav mr-5">        
           <li class=" active" >
-            <a class="nav-link " href="{% url 'home' %}"  >Home           
+            <a class="nav-link" href="{% url 'home' %}"  >Home           
             </a>  
           </li>
-        </ul>       
+        </ul>  
+        <ul class="navbar-nav mr-1 ">
+          <li class="nav-item">
+            <img src="{% static 'images/speakers/lotus.png' %}" style="width: 90px;" alt="logo">
+          </li>
+        </ul>     
       </div>
     </div>
   </nav>
@@ -157,8 +161,8 @@
                     <h4 class="mt-1 mb-5 pb-1">We are The Event_z Team</h4>
                   </div>             
                   <div class="input_wrap">
-                    {% if msg %}
-                    <p style = "color:red">{{msg}}</p><br>
+                    {% if message %}
+                    <p class = "text-danger ">{{message}}</p><br>
                     {% endif %}                          
                     <form method="post" action="" >
                       <p>Please login to your account</p><br>
@@ -173,7 +177,7 @@
                       </div>
                       <div class="input_wrap field password">
                         <div class="input_field">
-                          <input type="password" autocomplete="off" name = "password" class="form-control  password" id="input_password" placeholder ="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one digit and one uppercase and lowercase letter, and at least 8 or more characters" required>                         
+                          <input type="password" autocomplete="off" name = "password" class="form-control  password" id="input_password" placeholder ="password"  required>                         
                           <span class="icon icon fas fa-lock errspan"></span>                                             
                         </div>
                         <div class="error error-txt">Password can't be blank

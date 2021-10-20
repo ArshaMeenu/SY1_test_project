@@ -31,10 +31,10 @@
         </ul>
         <ul class="navbar-nav  ">
           <li class="">
-            <a class="nav-link text-primary" href="#">Welcome {{request.session.userid}} !!!</a>
+            <a class="nav-link text-primary" href="#">Welcome {{request.session.username}} !!!</a>
           </li>        
           <li class="">
-            <a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">logout</a>
+            <a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">Logout</a>
           </li>  
         </ul>
       </div>
@@ -51,7 +51,7 @@
               <div class="card text-center " style="width: 18rem;border:2px dotted red;border-radius:10px">
                 <img class="card-img-top img-thumbnail" src="{% static 'images/speakers/person.png' %}" alt="Card image cap" >
                 <div class="card-body text-center">                
-                  <h5 class="card-title">{{request.session.username}}</h5>
+                  <h5 class="card-title">{{request.session.userid}}</h5>
                   <p class="card-text">Users can also update their contact details under My Tasks/My Details.</p>
                 </div>
               </div>         

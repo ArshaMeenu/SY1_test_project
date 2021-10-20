@@ -57,29 +57,59 @@ class Login(APIView):
   def post(self,request):
         username = request.POST['username']
         password = request.POST['password']
-        try:
+        msg ="Invalid username or password."
+        # if request.user.is_authenticated:
+        #   print("not auth")
+        #   return redirect("/")
+        # else:
+        #   if request.method == "POST":
+        #     username = request.POST['username']
+        #     password = request.POST['password']
+        #     msg = "Invalid Username or Password."
+
+        #     user = authenticate(username=username, password=password)
+        #     if user is not None:
+        #       user_data = UserProfile.objects.get(user=user)
+        #       print(user_data)
+        #       if user_data.type == "user":
+        #         login(request, user)
+        #         print("middle")
+
+        #         print(request.user)
+        #         return redirect("/user-profile")
+        #       else:
+        #         return render(request, "login.html", {"message":msg})
+        #     print("end")
+        #     return render(request, "login.html",{'message':msg})
+
+        try:          
             Account = User.objects.get(username=username)
+            print("start")
+            # print(Account)
         except BaseException as e:
-            msg = str(e)
             return render(request, "login.html", { "msg" : msg})
         token = Token.objects.get_or_create(user=Account)[0].key
         if not check_password(password, Account.password):
-            msg ="Incorrect Login credentials"
             return render(request, "login.html", { "msg" : msg})
         if Account:           
             if Account.is_active:                
                 login(request, Account)   
                 userid = request.user.id  
-                user = UserProfile.objects.get(user_id = userid)
+                print(request.user)
+                print(userid)
+                user = UserProfile.objects.filter(user_id = userid).all()
+                print(user)
+                serialized = UserProfileSerializer(user,many=True)
+                data=serialized.data
+                username = data[0].get('full_name')
+                userid= data[0].get('user')
                 request.session['username'] = username
-                # request.session['userid'] = user
+                request.session['userid'] = userid
                 response = redirect('/userprofile')
                 return response
             else:
-                msg = {"400": f'Account not active'}
                 return render(request, "login.html", { "msg" : msg})
         else:
-            msg= "Account doesnt exist"
             return render(request, "login.html", { "msg" : msg})
 
 # user profile section
@@ -99,7 +129,7 @@ class userProfile(APIView):
             request.session['event_name']=evnt_name
             request.session['status']=payment_status
             request.session['id']=evnt_id
-            return redirect("/paymentconfirm")     
+            return redirect("/payment-confirm")     
         return render(request,'userprofile.html',status=status.HTTP_400_BAD_REQUEST)
 
 # payment confirm page section

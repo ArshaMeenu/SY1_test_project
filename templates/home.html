@@ -17,7 +17,7 @@
 			background-color: #4CAF50;
 			color: white;
 		}
-		.pagination a:hover:not(.active) {background-color:#06768a;color:black;}
+		.pagination a:hover:not(.active) {background-color:#e28ff2;color:#0f0b0a;}
 	</style>
 	{% endblock %}
 
@@ -26,7 +26,7 @@
 	<nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
 		<div class="container-fluid p-0">
 			<!-- logo -->
-			<a class="navbar-brand" href="#">
+			<a class="navbar-brand" href="{% url 'home' %}">
 				<p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
 			</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -49,11 +49,22 @@
 					</li>             
 					<li class="nav-item">
 						<a class="nav-link" href="#contact">Contact<span>/</span></a>
-					</li>          
+					</li>        
+          {% if not user.is_authenticated %}  
 					<li class="nav-item">
 						<a class="nav-link text-primary" href="{% url 'login' %}">Already have an account ?</a>
-					</li>					
+					</li>		
+          {% else %}
+          <li class="nav-item">
+						<a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">Logout</a>
+					</li>
+          {% endif %}	          					
 				</ul>
+        <ul class="navbar-nav mr-1 ">
+          <li class="nav-item">
+            <img src="{% static 'images/speakers/lotus.png' %}" style="width: 90px;" alt="logo">
+          </li>
+        </ul>
 			</div>
 		</div>
 	</nav>
@@ -61,13 +72,13 @@
 
 	<!--banner section start -->
 
-	<section class="banner bg-subscribe overlay-light">
+	<section class="banner speakers bg-speaker  overlay-light">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">					
 					<div class="block text-center">						
 						<div></div>
-						<h1>Event Expo </h1>
+						<h1 >Event Expo </h1>
 						<h2>2021 - 2022</h2>
 						<h6></h6>
 					</div>
@@ -114,9 +125,9 @@
 
 	<!--event section end --> 
 
-	<section class="cta-subscribe bg-banner-one overlay-light pt-5 pb-5 shadow-sm" >
-		<div class ="container text-center">
-			<div class="row pt-5" id ="event">
+	<section class="cta-subscribe bg-banner-one overlay-light pt-5 pb-5 shadow-sm " id ="event" >
+		<div class ="container text-center ">
+			<div class="row pt-5" >
 				<div class="col-12 ">					
 					<div class="section-title white">
 						<h3 ><span class="alternate">Events</span></h3>
@@ -139,10 +150,9 @@
 					{% endfor%}
 				</div>
 			</div>
-
 			<!-- pagination -->		   
 			<span class="current text-white"><a>	Page {{ data.number }} of {{ data.paginator.num_pages }}.&nbsp;</a></span>
-			<div class="pagination ">            
+			<div class="pagination">            
 				<span class="step-links ">
 					<a href="?page=1" >&laquo;&nbsp; first</a> &nbsp;
 					{% if data.has_previous %}
