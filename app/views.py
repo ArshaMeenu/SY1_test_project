@@ -90,24 +90,32 @@ class Login(APIView):
 # user profile section
 class userProfile(APIView):
   permission_classes = (AllowAny,)
-  def get(self,request, *args, **kwargs): 
-    print('userProfile')  
-    print(request.session)
+  def get(self,request, *args, **kwargs):     
     return render(request,'userprofile.html')
 
-  def post(self, request, *args, **kwargs):                
-        serializer_obj = EventSerializer(data=request.data)        
-        if serializer_obj.is_valid():            
-            serializer_obj.save()            
-            data = serializer_obj.data
-            evnt_name = data['event_name']
-            evnt_id = data['id']  
-            payment_status = data['is_paid']
-            request.session['event_name']=evnt_name
-            request.session['status']=payment_status
-            request.session['id']=evnt_id
-            return redirect("/payment-confirm")     
-        return render(request,'userprofile.html',status=status.HTTP_400_BAD_REQUEST)
+  def post(self, request, *args, **kwargs):
+    if request.method == "POST":
+      event_name = request.POST["event_name"]
+      desc = request.POST["description"]
+      amount = request.POST["price"]
+      print(amount)      
+      print(desc)         
+      if event_name ==" " or amount ==" " or desc==" " :
+        messages.warning(request,"There is one or more fields are empty!")
+        return redirect("/userprofile")
+      serializer_obj = EventSerializer(data=request.data)        
+      if serializer_obj.is_valid():            
+          serializer_obj.save()            
+          data = serializer_obj.data
+          evnt_name = data['event_name']
+          evnt_id = data['id']  
+          payment_status = data['is_paid']
+          request.session['event_name']=evnt_name
+          request.session['status']=payment_status
+          request.session['id']=evnt_id
+          return redirect("/payment-confirm")     
+      return render(request,'userprofile.html',status=status.HTTP_400_BAD_REQUEST)       
+        
 
 # payment confirm page section
 class paymentConfirm(APIView):
