@@ -35,8 +35,6 @@ class Home(ListView):
   permission_classes = (AllowAny,)
   def get(self,request):    
     event_list = Events.objects.filter(is_paid=1).all().values().order_by('start_date')
-    print("start")
-    print(event_list)
     paginator = Paginator(event_list, 3) # Show 3 events per page.
     page_number = request.GET.get('page')
     event_obj = paginator.get_page(page_number)        
@@ -97,14 +95,15 @@ class userProfile(APIView):
     if request.method == "POST":
       event_name = request.POST["event_name"]
       desc = request.POST["description"]
-      amount = request.POST["price"]              
+      amount = request.POST["price"] 
+      country = request.POST["country"]    
       if event_name ==" " or amount ==" " or desc==" " :
         messages.warning(request,"There is one or more fields are empty!")
         return redirect("/userprofile")
-      serializer_obj = EventSerializer(data=request.data)        
+      serializer_obj = EventSerializer(data=request.data)            
       if serializer_obj.is_valid():            
-          serializer_obj.save()            
-          data = serializer_obj.data
+          serializer_obj.save(country=country)            
+          data = serializer_obj.data 
           evnt_name = data['event_name']
           evnt_id = data['id']  
           payment_status = data['is_paid']

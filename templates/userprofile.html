@@ -106,15 +106,26 @@
 					<label for="price"  class = "text-secondary ">Ticket Rate :&nbsp; </label><br>
 					<input type="number" autocomplete="off" placeholder ="₹"  min="10.00" data-bs-toggle="tooltip" data-bs-placement="top" title="ticket amount for the event"  max="100000.00" name="price" class="form-control" id="fname" step="any" required/>                
 					<br><br> 
+					<label for="price"  class = "text-secondary ">Country:&nbsp; </label><br>
+
+          {% load countries %}
+            {% get_countries as countries %}
+            <select style="width:100%" name ="country">
+              {% for code, name in countries %}
+                  <option value="{{ name }}" >{{ name }}</option>
+              {% endfor %}
+            </select>
+
+          <br><br>
 					<div class ="container">  
 						<div class="row">
 							<div class="col-6">
-								<label>Start Date</label>  
+								<label for="startdate"  class = "text-secondary ">Start Date</label>  
 								<input class="input-text date-class " data-bs-toggle="tooltip" data-bs-placement="top" title="Event starting date" name="start_date" type="date"  required="required">
 								<br>
 							</div>
 							<div class="col-6">
-								<label>End Date</label>
+								<label for="enddate"  class = "text-secondary ">End Date</label>
 								<input class="input-text date-class"  name="end_date" type="date" data-bs-toggle="tooltip" data-bs-placement="top" title="Event ending date"  required="required">
 							</div>
 						</div>     

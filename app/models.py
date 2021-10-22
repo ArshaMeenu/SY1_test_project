@@ -13,7 +13,7 @@ class Events(models.Model):
   start_date = models.DateField(blank=True,null=True)
   end_date = models.DateField(blank=True,null=True)
   is_paid = models.BooleanField(default=False,blank=True,null=True)  
-  # country =CountryField(multiple=True,blank=True)
+  country =CountryField(multiple=True,blank=True)
   price= models.DecimalField(max_digits=10, decimal_places=2)
 
   def __str__(self):
@@ -21,7 +21,6 @@ class Events(models.Model):
 
   def get_display_price(self):
     return "{0:.2f}".format(self.price / 100)
-
 
 class UserProfile(models.Model):
   user = models.ForeignKey(User,on_delete=models.CASCADE)
