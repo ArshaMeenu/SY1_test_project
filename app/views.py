@@ -34,7 +34,9 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 class Home(ListView):
   permission_classes = (AllowAny,)
   def get(self,request):    
-    event_list = Events.objects.filter(is_paid=1).all().values()
+    event_list = Events.objects.filter(is_paid=1).all().values().order_by('start_date')
+    print("start")
+    print(event_list)
     paginator = Paginator(event_list, 3) # Show 3 events per page.
     page_number = request.GET.get('page')
     event_obj = paginator.get_page(page_number)        
