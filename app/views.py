@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.views.generic.base import TemplateView
 import rest_framework
@@ -97,12 +98,14 @@ class userProfile(APIView):
       desc = request.POST["description"]
       amount = request.POST["price"] 
       country = request.POST["country"]    
+      user = request.session["username"]
       if event_name ==" " or amount ==" " or desc==" " :
         messages.warning(request,"There is one or more fields are empty!")
         return redirect("/userprofile")
-      serializer_obj = EventSerializer(data=request.data)            
+      userid = User.objects.filter(username = user).values('id')
+      serializer_obj = EventSerializer(data = request.data)  
       if serializer_obj.is_valid():            
-          serializer_obj.save(country=country)            
+          serializer_obj.save(country=country,user_id = userid )
           data = serializer_obj.data 
           evnt_name = data['event_name']
           evnt_id = data['id']  
