@@ -1,0 +1,112 @@
+{% extends 'index.html' %}
+{% load static %}
+
+
+{% block content %}
+
+	<!--navbar section start -->
+	<nav class="navbar main-nav border-less fixed-top navbar-expand-lg p-0">
+		<div class="container-fluid p-0">
+			<!-- logo -->
+			<a class="navbar-brand" href="{% url 'home' %}">
+				<p><b style="color:Red;font-size:50px;font-family: 'Times New Roman'">E</b><span style = "font-size : 35px;color:#561e87;font-family: 'Times New Roman'">VENT_Z </span></p>
+			</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="fa fa-bars"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav" >
+				<ul class="navbar-nav mx-auto " >
+					<li class="nav-item ">
+						<a class="nav-link" href="{% url 'home' %}" >Home
+							<span>/</span>
+						</a>          
+					</li>
+					<li class="nav-item" >
+						<a class="nav-link" href="#about">About Us
+							<span>/</span>
+						</a>
+					</li>        
+				
+					<li class="nav-item">
+						<a class="nav-link" href="#contact">Contact<span>/</span></a>
+					</li>        
+          {% if not user.is_authenticated %}  
+					<li class="nav-item">
+						<a class="nav-link text-primary" href="{% url 'login' %}">Already have an account ?</a>
+					</li>		
+          {% else %}
+          <li class="nav-item">
+						<a class="nav-link text-dark" href="{% url 'userprofile' %}">Profile <span>/</span></a>
+					</li>
+          <li class="">
+            <a class="nav-link text-primary" href="#">Hi, {{request.session.username}} &nbsp; <span>/</span></a>
+          </li>
+          	
+          <li class="nav-item">
+						<a class="nav-link text-danger mr-3" href="{% url 'logout' %}?next={% url 'login' %}">Logout</a>
+					</li>
+
+          {% endif %}	          					
+				</ul>
+        <ul class="navbar-nav mr-1 ">
+          <li class="nav-item">
+            <img src="{% static 'images/speakers/lotus.png' %}" style="width: 90px;" alt="logo">
+          </li>
+        </ul>
+			</div>
+		</div>
+	</nav>
+	<!--navbar section end -->
+
+<!--event section end --> 
+
+
+<section class="banner speakers bg-speaker  overlay-light shadow-sm " id ="event" >
+    <div class ="container ">
+        <div class="row " >
+            <div class="col-12 ">					
+                <div class="section-title white">
+                    <h3 ><span class="alternate">Events</span></h3>
+                </div>
+            </div>
+            <div class ="row h-25 w-75" style="margin:15px">
+                {% for i in data %} 
+                <div class="col-sm-12 col-md-6 col-lg-4 d-flex w-75 h-75">       
+                    <div class="card shadow-sm " style="padding:6px;">
+                        <img src="https://mdbootstrap.com/img/new/standard/city/042.jpg" class="card-img-top" alt="..." />
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-header text-uppercase text-truncate">{{i.event_name}}</h5><br>
+                            <p class="card-text mb-4 p-2 text-truncate "> <i>{{i.description}}</i></p>
+                            <p class="card-text mb-4 p-2 text-truncate "><b>Venue :</b> {{i.country}}</p>
+                            <p class="card-text mb-4 p-2 text-truncate "><b>Ticket (₹) :</b> {{i.price}}</span>
+                        </div>
+                        <div class="card-footer bg-warning ">
+                            <small class="text-dark  ">{{i.start_date}} - {{i.end_date}}</small>
+                        </div>
+                    </div>
+                </div>
+                {% endfor%}
+            </div>
+        </div> 
+        <!-- pagination -->		   
+        <!-- <span class="current text-white"><a>	Page {{ data.number }} of {{ data.paginator.num_pages }}.&nbsp;</a></span> -->
+        <div class="pagination">            
+            <span class="step-links ">
+                <a  style="color: rgb(236, 142, 34);">	Page {{ data.number }} of {{ data.paginator.num_pages }}.&nbsp;</a>
+                <a href="?page=1" style="color: white;">&laquo;&nbsp; first</a> &nbsp;
+                {% if data.has_previous %}
+                <a href="?page={{ data.previous_page_number }}" style="color: white;">previous</a>&nbsp;
+                {% endif %} 
+                {% if data.has_next %}
+                <a href="?page={{ data.next_page_number }}" style="color: white;">next</a>&nbsp;
+                {% endif %}             
+                <a href="?page={{ data.paginator.num_pages }}" style="color: white;">last &nbsp; &raquo;</a>&nbsp;
+            </span>
+        </div>            
+        <!-- end pagination -->
+    </div>
+</section>
+
+<!--event section start -->
+
+{% endblock %}

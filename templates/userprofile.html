@@ -8,7 +8,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        mx-auto;
+        /* mx-auto; */
       }     
     </style>
 {% endblock %}
@@ -44,7 +44,7 @@
 <!--card section start-->
 
 
-<section class="banner section bg-subscribe overlay-dark" >
+<section class="banner bg-subscribe " >
 	<!--message alert-->
 	<div class ="container">
 		<div class = "row ">
@@ -93,24 +93,24 @@
 <div class="modal " tabindex="-1" id="modal_add">
 	<div class="modal-dialog">
 		<div class="modal-content ">      
-			<div class="modal-body text-center border rounded" style ="background-color :#021b4f">
-				<p class = "text-warning h3 ">Create Event</p>
+			<div class="modal-body text-center border rounded speakers bg-speaker" >
+				<p class = "text-warning h3 ">CREATE EVENT</p>
 				<br><br>
 				<form action="{% url 'userprofile' %}" name= "myform" method="POST">
 					{% csrf_token %}
-					<label for="event_name"  class = "text-secondary ">Name: &nbsp; </label>                
-					<input id="event_name" autocomplete="off" type="text" name="event_name" class=" form-control" placeholder =" Enter event name here ..." required="required" id="evnt_name"> <br><br>       
-					<label for="desc" class = "text-secondary ">Description:&nbsp; </label>
+					<label for="event_name"  class = "text-white" >NAME: &nbsp; </label>                
+					<input id="event_name" autocomplete="off" type="text" name="event_name" class=" form-control" placeholder =" Enter event name here ..." required="required" id="evnt_name"> <br><br>
+					<label for="desc" class = "text-white ">DESCRIPTION:&nbsp; </label>
 					<textarea name="description" rows="3" cols="40" class="form-control"  placeholder =" About the event ..."  required="required"></textarea>                     
 					<br><br>                 
-					<label for="price"  class = "text-secondary ">Ticket Rate :&nbsp; </label><br>
+					<label for="price"  class = "text-white">TICKET RATE :&nbsp; </label><br>
 					<input type="number" autocomplete="off" placeholder ="₹"  min="10.00" data-bs-toggle="tooltip" data-bs-placement="top" title="ticket amount for the event"  max="100000.00" name="price" class="form-control" id="fname" step="any" required/>                
 					<br><br> 
-					<label for="price"  class = "text-secondary ">Country:&nbsp; </label><br>
+					<label for="price"  class = "text-white ">COUNTRY:&nbsp; </label><br>
 
           {% load countries %}
             {% get_countries as countries %}
-            <select style="width:100%" name ="country">
+            <select style="width:460px;height: 40px"  name ="country" >
               {% for code, name in countries %}
                   <option value="{{ name }}" >{{ name }}</option>
               {% endfor %}
@@ -120,12 +120,12 @@
 					<div class ="container">  
 						<div class="row">
 							<div class="col-6">
-								<label for="startdate"  class = "text-secondary ">Start Date</label>  
+								<label for="startdate"  class = "text-white ">START DATE :</label>  
 								<input class="input-text date-class " data-bs-toggle="tooltip" data-bs-placement="top" title="Event starting date" name="start_date" type="date"  required="required">
 								<br>
 							</div>
 							<div class="col-6">
-								<label for="enddate"  class = "text-secondary ">End Date</label>
+								<label for="enddate"  class = "text-white ">END DATE :</label>
 								<input class="input-text date-class"  name="end_date" type="date" data-bs-toggle="tooltip" data-bs-placement="top" title="Event ending date"  required="required">
 							</div>
 						</div>     

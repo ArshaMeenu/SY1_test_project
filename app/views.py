@@ -12,7 +12,7 @@ from django.http import HttpResponseRedirect,HttpResponse
 from django.conf import settings
 from django.contrib import messages
 from events.serializers import *
-from rest_framework import status
+from rest_framework import status 
 from .models import *
 from django.views.generic.list import ListView
 
@@ -43,7 +43,7 @@ class Home(ListView):
 
   def post(self,request):
     event_list = Events.objects.filter(is_paid=1).all().values()
-    paginator = Paginator(event_list, 4) # Show 3 events per page.
+    paginator = Paginator(event_list, 3) # Show 3 events per page.
     page_number = request.GET.get('page')
     event_obj = paginator.get_page(page_number)
     return render(request, "home.html",{'data':event_obj})
@@ -168,3 +168,14 @@ def paymentCancel(request):
 
 
 
+# event list section
+class EventList(ListView):
+  permission_classes = (AllowAny,)
+  def get(self,request, *args, **kwargs):
+    user = request.user 
+    print(user)
+    event_list = Events.objects.filter(is_paid=1).all().values()
+    paginator = Paginator(event_list, 3) # Show 4 events per page.
+    page_number = request.GET.get('page')
+    event_obj = paginator.get_page(page_number)
+    return render(request, "eventlist.html",{'data':event_obj,'id':id})

@@ -5,7 +5,7 @@
 		.pagination {
 			display: inline-block;
 			margin:8px;			
-		}
+		} 
 		.pagination a {
 			color: white;
 			float: none;
@@ -45,7 +45,7 @@
 						</a>
 					</li>        
 					<li class="nav-item">
-						<a class="nav-link" href="#event">Events<span>/</span></a>
+						<a class="nav-link" href="{% url 'eventlist' %}">Events<span>/</span></a>
 					</li>             
 					<li class="nav-item">
 						<a class="nav-link" href="#contact">Contact<span>/</span></a>
@@ -133,7 +133,7 @@
 
 	<!--event section end --> 
 
-	<section class="cta-subscribe bg-banner-one overlay-light pt-5 pb-5 shadow-sm " id ="event" >
+	<!-- <section class="cta-subscribe bg-banner-one overlay-light pt-5 pb-5 shadow-sm " id ="event" >
 		<div class ="container text-center ">
 			<div class="row pt-5" >
 				<div class="col-12 ">					
@@ -159,9 +159,9 @@
 					</div>
 					{% endfor%}
 				</div>
-			</div>
+			</div> 
 			<!-- pagination -->		   
-			<span class="current text-white"><a>	Page {{ data.number }} of {{ data.paginator.num_pages }}.&nbsp;</a></span>
+			<!-- <span class="current text-white"><a>	Page {{ data.number }} of {{ data.paginator.num_pages }}.&nbsp;</a></span>
 			<div class="pagination">            
 				<span class="step-links ">
 					<a href="?page=1" >&laquo;&nbsp; first</a> &nbsp;
@@ -173,10 +173,10 @@
 					{% endif %}             
 					<a href="?page={{ data.paginator.num_pages }}">last &nbsp; &raquo;</a>&nbsp;
 				</span>
-			</div>            
+			</div>             -->
 			<!-- end pagination -->
 		</div>
-	</section>
+	</section> -->
 
 	<!--event section start -->
 
